@@ -1,0 +1,86 @@
+#include "main.h"
+#include "init.hpp"
+
+void populateControlArrays(){
+
+	//updating lastRT[] values
+
+	lastJoyRT[E_CONTROLLER_ANALOG_LEFT_X] = currJoyRT[E_CONTROLLER_ANALOG_LEFT_X];
+	lastJoyRT[E_CONTROLLER_ANALOG_LEFT_Y] = currJoyRT[E_CONTROLLER_ANALOG_LEFT_Y];
+	lastJoyRT[E_CONTROLLER_ANALOG_RIGHT_X] = currJoyRT[E_CONTROLLER_ANALOG_RIGHT_X];
+	lastJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y] = currJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y];
+
+	lastBtnRT[E_CONTROLLER_DIGITAL_L1] = currBtnRT[E_CONTROLLER_DIGITAL_L1];
+	lastBtnRT[E_CONTROLLER_DIGITAL_L2] = currBtnRT[E_CONTROLLER_DIGITAL_L2];
+	lastBtnRT[E_CONTROLLER_DIGITAL_R1] = currBtnRT[E_CONTROLLER_DIGITAL_R1];
+	lastBtnRT[E_CONTROLLER_DIGITAL_R2] = currBtnRT[E_CONTROLLER_DIGITAL_R2];
+	lastBtnRT[E_CONTROLLER_DIGITAL_UP] = currBtnRT[E_CONTROLLER_DIGITAL_UP];
+	lastBtnRT[E_CONTROLLER_DIGITAL_DOWN] = currBtnRT[E_CONTROLLER_DIGITAL_DOWN];
+	lastBtnRT[E_CONTROLLER_DIGITAL_LEFT] = currBtnRT[E_CONTROLLER_DIGITAL_LEFT];
+	lastBtnRT[E_CONTROLLER_DIGITAL_RIGHT] = currBtnRT[E_CONTROLLER_DIGITAL_RIGHT];
+	lastBtnRT[E_CONTROLLER_DIGITAL_X] = currBtnRT[E_CONTROLLER_DIGITAL_X];
+	lastBtnRT[E_CONTROLLER_DIGITAL_B] = currBtnRT[E_CONTROLLER_DIGITAL_B];
+	lastBtnRT[E_CONTROLLER_DIGITAL_Y] = currBtnRT[E_CONTROLLER_DIGITAL_Y];
+	lastBtnRT[E_CONTROLLER_DIGITAL_A] = currBtnRT[E_CONTROLLER_DIGITAL_A];
+
+	//updating currRT[] values
+
+	currJoyRT[E_CONTROLLER_ANALOG_LEFT_X] = master.get_analog(E_CONTROLLER_ANALOG_LEFT_X);
+	currJoyRT[E_CONTROLLER_ANALOG_LEFT_Y] = master.get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
+	currJoyRT[E_CONTROLLER_ANALOG_RIGHT_X] = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
+	currJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y] = master.get_analog(E_CONTROLLER_ANALOG_RIGHT_Y);
+
+	currBtnRT[E_CONTROLLER_DIGITAL_L1] = master.get_digital(E_CONTROLLER_DIGITAL_L1);
+	currBtnRT[E_CONTROLLER_DIGITAL_L2] = master.get_digital(E_CONTROLLER_DIGITAL_L2);
+	currBtnRT[E_CONTROLLER_DIGITAL_R1] = master.get_digital(E_CONTROLLER_DIGITAL_R1);
+	currBtnRT[E_CONTROLLER_DIGITAL_R2] = master.get_digital(E_CONTROLLER_DIGITAL_R2);
+	currBtnRT[E_CONTROLLER_DIGITAL_UP] = master.get_digital(E_CONTROLLER_DIGITAL_UP);
+	currBtnRT[E_CONTROLLER_DIGITAL_DOWN] = master.get_digital(E_CONTROLLER_DIGITAL_DOWN);
+	currBtnRT[E_CONTROLLER_DIGITAL_LEFT] = master.get_digital(E_CONTROLLER_DIGITAL_LEFT);
+	currBtnRT[E_CONTROLLER_DIGITAL_RIGHT] = master.get_digital(E_CONTROLLER_DIGITAL_RIGHT);
+	currBtnRT[E_CONTROLLER_DIGITAL_X] = master.get_digital(E_CONTROLLER_DIGITAL_X);
+	currBtnRT[E_CONTROLLER_DIGITAL_B] = master.get_digital(E_CONTROLLER_DIGITAL_B);
+	currBtnRT[E_CONTROLLER_DIGITAL_Y] = master.get_digital(E_CONTROLLER_DIGITAL_Y);
+	currBtnRT[E_CONTROLLER_DIGITAL_A] = master.get_digital(E_CONTROLLER_DIGITAL_A);
+
+}
+
+bool btnRising(controller_digital_e_t button){
+
+	if(currBtnRT[button] && !lastBtnRT[button]){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool btnFalling(controller_digital_e_t button){
+
+	if(!currBtnRT[button] && lastBtnRT[button]){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool joystickRising(controller_analog_e_t stickChannel){
+
+	if(currJoyRT[stickChannel] >= driveDeadThresh && lastJoyRT[stickChannel] < driveDeadThresh){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool joystickFalling(controller_analog_e_t stickChannel){
+
+	if(currJoyRT[stickChannel] < driveDeadThresh && lastJoyRT[stickChannel] >= driveDeadThresh){
+		return true;
+	}
+	else{
+		return false;
+	}
+}

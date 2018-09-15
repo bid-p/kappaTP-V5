@@ -29,8 +29,9 @@ void trackPos(){
 
 		prevTheta = theta;
 
-		currentEncoderValueR = (driveR1->get_raw_position(&timeNow) + driveR2->get_raw_position(&timeNow) + driveR3->get_raw_position(&timeNow))/3;
-		currentEncoderValueL = (driveL1->get_raw_position(&timeNow) + driveL2->get_raw_position(&timeNow) + driveL3->get_raw_position(&timeNow))/3;
+		//currentEncoderValueR = (driveR1->get_raw_position(&timeNow) + driveR2->get_raw_position(&timeNow) + driveR3->get_raw_position(&timeNow))/3;
+		//currentEncoderValueL = (driveL1->get_raw_position(&timeNow) + driveL2->get_raw_position(&timeNow) + driveL3->get_raw_position(&timeNow))/3;
+
 		//currentEncoderValueM = SensorValue[trackerH];
 
 		// Can multiply by a scalar to get the values in inches, or whatever unit I want x and y coordinates to be in.

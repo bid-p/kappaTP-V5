@@ -2,6 +2,9 @@
 
 using namespace pros;
 
+#ifndef INIT_DEFINE_GUARD
+#define INIT_DEFINE_GUARD
+
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 
 int currJoyRT[]{
@@ -188,3 +191,4 @@ typedef enum _stackStates {
     stackTip
 } tStackStates;
 */
+#endif

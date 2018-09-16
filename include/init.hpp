@@ -1,7 +1,7 @@
 #ifndef INIT_DEFINE_GUARD
 #define INIT_DEFINE_GUARD
 
-#include "main.h"
+#include "api.h"
 
 using namespace pros;
 

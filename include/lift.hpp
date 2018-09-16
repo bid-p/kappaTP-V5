@@ -1,7 +1,7 @@
 #ifndef LIFT_DEFINE_GUARD
 #define LIFT_DEFINE_GUARD
 
-#include "main.h"
+#include "api.h"
 
 extern pros::Motor *lift1;
 

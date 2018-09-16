@@ -1,8 +1,4 @@
-#include "init.hpp"
-#include "intake.hpp"
-#include "drive.hpp"
-#include "lift.hpp"
-//#include "odom.hpp"
+#include "main.h"
 
 using namespace pros::literals;
 

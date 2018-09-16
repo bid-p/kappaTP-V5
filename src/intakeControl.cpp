@@ -1,6 +1,4 @@
-#include "init.hpp"
-#include "ports.hpp"
-#include "intake.hpp"
+#include "main.h"
 
 using namespace pros;
 

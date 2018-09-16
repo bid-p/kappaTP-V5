@@ -1,7 +1,7 @@
 #ifndef DRIVE_DEFINE_GUARD
 #define DRIVE_DEFINE_GUARD
 
-#include "main.h"
+#include "api.h"
 
 extern pros::Motor *driveR1;
 extern pros::Motor *driveR2;

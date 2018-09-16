@@ -53,8 +53,11 @@
 /**
  * You should add more #includes here
  */
- //#include "drive.hpp"
-//#include "intake.hpp"
+#include "init.hpp"
+#include "drive.hpp"
+#include "intake.hpp"
+#include "lift.hpp"
+#include "ports.hpp"
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
 

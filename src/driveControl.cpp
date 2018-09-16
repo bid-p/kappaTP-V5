@@ -1,6 +1,4 @@
-#include "init.hpp"
-#include "ports.hpp"
-#include "drive.hpp"
+#include "main.h"
 
 pros::Motor *driveR1;
 pros::Motor *driveR2;

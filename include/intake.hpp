@@ -1,7 +1,7 @@
 #ifndef INTAKE_DEFINE_GUARD
 #define INTAKE_DEFINE_GUARD
 
-#include "main.h"
+#include "api.h"
 
 extern pros::Motor *intake;
 

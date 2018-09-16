@@ -1,5 +1,4 @@
-#include "ports.hpp"
-#include "init.hpp"
+#include "main.h"
 
 pros::Controller *master;
 

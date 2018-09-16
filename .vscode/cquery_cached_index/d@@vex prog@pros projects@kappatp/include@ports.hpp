@@ -1,7 +1,7 @@
-#include "main.h"
-
 #ifndef PORTS_DEFINE_GUARD
 #define PORTS_DEFINE_GUARD
+
+#include "main.h"
 
 const int MPORT_DRIVE_R1 = 1;
 const int MPORT_DRIVE_R2 = 2;

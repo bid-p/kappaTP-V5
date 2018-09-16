@@ -1,3 +1,5 @@
+#include "init.hpp"
+#include "ports.hpp"
 #include "lift.hpp"
 
 pros::Motor *lift1;

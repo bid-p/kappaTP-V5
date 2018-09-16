@@ -1,9 +1,7 @@
-#include "main.h"
-#include "ports.hpp"
-#include "init.hpp"
-
 #ifndef LIFT_DEFINE_GUARD
 #define LIFT_DEFINE_GUARD
+
+#include "main.h"
 
 extern pros::Motor *lift1;
 

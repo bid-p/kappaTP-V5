@@ -1,4 +1,8 @@
+#include "init.hpp"
+#include "ports.hpp"
 #include "intake.hpp"
+
+using namespace pros;
 
 pros::Motor *intake;
 

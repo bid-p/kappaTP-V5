@@ -1,9 +1,7 @@
-#include "main.h"
-#include "ports.hpp"
-#include "init.hpp"
-
 #ifndef DRIVE_DEFINE_GUARD
 #define DRIVE_DEFINE_GUARD
+
+#include "main.h"
 
 extern pros::Motor *driveR1;
 extern pros::Motor *driveR2;

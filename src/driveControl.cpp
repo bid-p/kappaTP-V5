@@ -1,3 +1,5 @@
+#include "init.hpp"
+#include "ports.hpp"
 #include "drive.hpp"
 
 pros::Motor *driveR1;

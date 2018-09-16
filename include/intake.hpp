@@ -5,7 +5,7 @@
 
 extern pros::Motor *intake;
 
-void initMotors();
+void initIntakeMotors();
 void setIntake();
 void setIntakePosition();
 void checkIntakeState();

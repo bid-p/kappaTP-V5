@@ -8,9 +8,9 @@ pros::Motor *driveL2;
 pros::Motor *driveL3;
 
 void initDriveMotors(){
-  driveR1 = new pros::Motor(MPORT_DRIVE_R1, pros::E_MOTOR_GEARSET_18, 0);
-  driveR2 = new pros::Motor(MPORT_DRIVE_R2, pros::E_MOTOR_GEARSET_18, 0);
-  driveR3 = new pros::Motor(MPORT_DRIVE_R3, pros::E_MOTOR_GEARSET_18, 0);
+  driveR1 = new pros::Motor(MPORT_DRIVE_R1, pros::E_MOTOR_GEARSET_18, 1);
+  driveR2 = new pros::Motor(MPORT_DRIVE_R2, pros::E_MOTOR_GEARSET_18, 1);
+  driveR3 = new pros::Motor(MPORT_DRIVE_R3, pros::E_MOTOR_GEARSET_18, 1);
   driveL1 = new pros::Motor(MPORT_DRIVE_L1, pros::E_MOTOR_GEARSET_18, 0);
   driveL2 = new pros::Motor(MPORT_DRIVE_L2, pros::E_MOTOR_GEARSET_18, 0);
   driveL3 = new pros::Motor(MPORT_DRIVE_L3, pros::E_MOTOR_GEARSET_18, 0);

@@ -53,13 +53,13 @@
 /**
  * You should add more #includes here
  */
-#include "init.hpp"
 #include "drive.hpp"
+#include "init.hpp"
 #include "intake.hpp"
 #include "lift.hpp"
+#include "okapi/api.hpp"
 #include "ports.hpp"
-//#include "okapi/api.hpp"
-//#include "pros/api_legacy.h"
+#include "pros/api_legacy.h"
 
 #ifdef __cplusplus
 /**
@@ -69,4 +69,4 @@
 
 #endif
 
-#endif  // _PROS_MAIN_H_
+#endif // _PROS_MAIN_H_

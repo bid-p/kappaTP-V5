@@ -15,34 +15,34 @@ extern float angularVelocity;
 
 extern unsigned int timeNow;
 
-//struct PID drivePID;
+// struct PID drivePID;
 
 typedef enum liftStates {
-    liftNotRunning,
-    liftRising,
-    liftFalling,
-    liftHolding,
-		liftPickupGround,
-    liftPickupFlip,
-    liftHighGoal,
-    liftLowGoal,
+  liftNotRunning,
+  liftRising,
+  liftFalling,
+  liftHolding,
+  liftPickupGround,
+  liftPickupFlip,
+  liftHighGoal,
+  liftLowGoal,
 } tLiftStates;
 
 extern tLiftStates currLiftState;
 
 typedef enum driveStates {
-    driveNotRunning,
-		driveRunning,
-    driveHolding,
-    //drivePoleMacro,
+  driveNotRunning,
+  driveRunning,
+  driveHolding,
+  // drivePoleMacro,
 } tDriveStates;
 
 extern tDriveStates currDriveState;
 
 typedef enum intakeStates {
-    intakeNotRunning,
-    intakeOpen,
-		intakeClose,
+  intakeNotRunning,
+  intakeOpen,
+  intakeClose,
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;

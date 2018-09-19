@@ -1,7 +1,5 @@
 #include "main.h"
 
-using namespace pros::literals;
-
 /**
  * Runs the operator control code. This function will be started in its own task
  * with the default priority and stack size whenever the robot is enabled via
@@ -20,7 +18,7 @@ void opcontrol() {
   currLiftState = liftNotRunning;
   currIntakeState = intakeNotRunning;
 
-  while(true){
+  while (true) {
     timeNow = millis();
 
     checkDriveState();

@@ -21,6 +21,8 @@ void opcontrol() {
   while (true) {
     timeNow = millis();
 
+    populateControlArrays();
+
     checkDriveState();
     checkLiftState();
     checkIntakeState();

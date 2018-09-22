@@ -1,7 +1,5 @@
 #include "main.h"
 
-pros::Controller *master;
-
 double liftTarget;
 double driveTarget;
 int driveDeadThresh = 10;
@@ -18,123 +16,68 @@ tDriveStates currDriveState;
 
 tIntakeStates currIntakeState;
 
-int currJoyRT[]{E_CONTROLLER_ANALOG_LEFT_X, E_CONTROLLER_ANALOG_LEFT_Y,
-                E_CONTROLLER_ANALOG_RIGHT_X, E_CONTROLLER_ANALOG_RIGHT_Y};
-
-int lastJoyRT[]{E_CONTROLLER_ANALOG_LEFT_X, E_CONTROLLER_ANALOG_LEFT_Y,
-                E_CONTROLLER_ANALOG_RIGHT_X, E_CONTROLLER_ANALOG_RIGHT_Y};
-
-int currBtnRT[]{E_CONTROLLER_DIGITAL_L1,   E_CONTROLLER_DIGITAL_L2,
-                E_CONTROLLER_DIGITAL_R1,   E_CONTROLLER_DIGITAL_R2,
-                E_CONTROLLER_DIGITAL_UP,   E_CONTROLLER_DIGITAL_DOWN,
-                E_CONTROLLER_DIGITAL_LEFT, E_CONTROLLER_DIGITAL_RIGHT,
-                E_CONTROLLER_DIGITAL_X,    E_CONTROLLER_DIGITAL_B,
-                E_CONTROLLER_DIGITAL_Y,    E_CONTROLLER_DIGITAL_A};
-
-int lastBtnRT[]{E_CONTROLLER_DIGITAL_L1,   E_CONTROLLER_DIGITAL_L2,
-                E_CONTROLLER_DIGITAL_R1,   E_CONTROLLER_DIGITAL_R2,
-                E_CONTROLLER_DIGITAL_UP,   E_CONTROLLER_DIGITAL_DOWN,
-                E_CONTROLLER_DIGITAL_LEFT, E_CONTROLLER_DIGITAL_RIGHT,
-                E_CONTROLLER_DIGITAL_X,    E_CONTROLLER_DIGITAL_B,
-                E_CONTROLLER_DIGITAL_Y,    E_CONTROLLER_DIGITAL_A};
-
-void initController() {
-  master = new pros::Controller(pros::E_CONTROLLER_MASTER);
-}
+controllerIndices currRT[]{};
+controllerIndices lastRT[]{};
 
 void populateControlArrays() {
 
-  // updating lastRT[] values
-
-  lastJoyRT[E_CONTROLLER_ANALOG_LEFT_X] = currJoyRT[E_CONTROLLER_ANALOG_LEFT_X];
-  lastJoyRT[E_CONTROLLER_ANALOG_LEFT_Y] = currJoyRT[E_CONTROLLER_ANALOG_LEFT_Y];
-  lastJoyRT[E_CONTROLLER_ANALOG_RIGHT_X] =
-      currJoyRT[E_CONTROLLER_ANALOG_RIGHT_X];
-  lastJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y] =
-      currJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y];
-
-  lastBtnRT[E_CONTROLLER_DIGITAL_L1] = currBtnRT[E_CONTROLLER_DIGITAL_L1];
-  lastBtnRT[E_CONTROLLER_DIGITAL_L2] = currBtnRT[E_CONTROLLER_DIGITAL_L2];
-  lastBtnRT[E_CONTROLLER_DIGITAL_R1] = currBtnRT[E_CONTROLLER_DIGITAL_R1];
-  lastBtnRT[E_CONTROLLER_DIGITAL_R2] = currBtnRT[E_CONTROLLER_DIGITAL_R2];
-  lastBtnRT[E_CONTROLLER_DIGITAL_UP] = currBtnRT[E_CONTROLLER_DIGITAL_UP];
-  lastBtnRT[E_CONTROLLER_DIGITAL_DOWN] = currBtnRT[E_CONTROLLER_DIGITAL_DOWN];
-  lastBtnRT[E_CONTROLLER_DIGITAL_LEFT] = currBtnRT[E_CONTROLLER_DIGITAL_LEFT];
-  lastBtnRT[E_CONTROLLER_DIGITAL_RIGHT] = currBtnRT[E_CONTROLLER_DIGITAL_RIGHT];
-  lastBtnRT[E_CONTROLLER_DIGITAL_X] = currBtnRT[E_CONTROLLER_DIGITAL_X];
-  lastBtnRT[E_CONTROLLER_DIGITAL_B] = currBtnRT[E_CONTROLLER_DIGITAL_B];
-  lastBtnRT[E_CONTROLLER_DIGITAL_Y] = currBtnRT[E_CONTROLLER_DIGITAL_Y];
-  lastBtnRT[E_CONTROLLER_DIGITAL_A] = currBtnRT[E_CONTROLLER_DIGITAL_A];
+  for (int i = 0; i < 16; i++) {
+    lastRT[i] = currRT[i];
+  }
 
   // updating currRT[] values
 
-  currJoyRT[E_CONTROLLER_ANALOG_LEFT_X] =
-      master->get_analog(E_CONTROLLER_ANALOG_LEFT_X);
-  currJoyRT[E_CONTROLLER_ANALOG_LEFT_Y] =
-      master->get_analog(E_CONTROLLER_ANALOG_LEFT_Y);
-  currJoyRT[E_CONTROLLER_ANALOG_RIGHT_X] =
-      master->get_analog(E_CONTROLLER_ANALOG_RIGHT_X);
-  currJoyRT[E_CONTROLLER_ANALOG_RIGHT_Y] =
-      master->get_analog(E_CONTROLLER_ANALOG_RIGHT_Y);
+  currRT[leftX] = controller[ControllerAnalog::leftX];
+  currRT[leftY] = controller[ControllerAnalog::leftY];
+  currRT[rightX] = controller[ControllerAnalog::rightX];
+  currRT[rightY] = controller[ControllerAnalog::rightY];
 
-  currBtnRT[E_CONTROLLER_DIGITAL_L1] =
-      master->get_digital(E_CONTROLLER_DIGITAL_L1);
-  currBtnRT[E_CONTROLLER_DIGITAL_L2] =
-      master->get_digital(E_CONTROLLER_DIGITAL_L2);
-  currBtnRT[E_CONTROLLER_DIGITAL_R1] =
-      master->get_digital(E_CONTROLLER_DIGITAL_R1);
-  currBtnRT[E_CONTROLLER_DIGITAL_R2] =
-      master->get_digital(E_CONTROLLER_DIGITAL_R2);
-  currBtnRT[E_CONTROLLER_DIGITAL_UP] =
-      master->get_digital(E_CONTROLLER_DIGITAL_UP);
-  currBtnRT[E_CONTROLLER_DIGITAL_DOWN] =
-      master->get_digital(E_CONTROLLER_DIGITAL_DOWN);
-  currBtnRT[E_CONTROLLER_DIGITAL_LEFT] =
-      master->get_digital(E_CONTROLLER_DIGITAL_LEFT);
-  currBtnRT[E_CONTROLLER_DIGITAL_RIGHT] =
-      master->get_digital(E_CONTROLLER_DIGITAL_RIGHT);
-  currBtnRT[E_CONTROLLER_DIGITAL_X] =
-      master->get_digital(E_CONTROLLER_DIGITAL_X);
-  currBtnRT[E_CONTROLLER_DIGITAL_B] =
-      master->get_digital(E_CONTROLLER_DIGITAL_B);
-  currBtnRT[E_CONTROLLER_DIGITAL_Y] =
-      master->get_digital(E_CONTROLLER_DIGITAL_Y);
-  currBtnRT[E_CONTROLLER_DIGITAL_A] =
-      master->get_digital(E_CONTROLLER_DIGITAL_A);
+  currRT[L1] = controller[ControllerDigital::L1];
+  currRT[L2] = controller[ControllerDigital::L2];
+  currRT[R1] = controller[ControllerDigital::R1];
+  currRT[R2] = controller[ControllerDigital::R2];
+  currRT[Up] = controller[ControllerDigital::up];
+  currRT[Down] = controller[ControllerDigital::down];
+  currRT[Left] = controller[ControllerDigital::left];
+  currRT[Right] = controller[ControllerDigital::right];
+  currRT[X] = controller[ControllerDigital::X];
+  currRT[B] = controller[ControllerDigital::B];
+  currRT[Y] = controller[ControllerDigital::Y];
+  currRT[A] = controller[ControllerDigital::A];
 }
 
-bool btnRising(controller_digital_e_t button) {
+bool btnRising(controllerIndices button) {
 
-  if (currBtnRT[button] && !lastBtnRT[button]) {
+  if (currRT[button] && !lastRT[button]) {
     return true;
   } else {
     return false;
   }
 }
 
-bool btnFalling(controller_digital_e_t button) {
+bool btnFalling(controllerIndices button) {
 
-  if (!currBtnRT[button] && lastBtnRT[button]) {
+  if (!currRT[button] && lastRT[button]) {
     return true;
   } else {
     return false;
   }
 }
 
-bool joystickRising(controller_analog_e_t stickChannel) {
+bool joystickRising(controllerIndices stickChannel) {
 
-  if (currJoyRT[stickChannel] >= driveDeadThresh &&
-      lastJoyRT[stickChannel] < driveDeadThresh) {
+  if (currRT[stickChannel] >= driveDeadThresh &&
+      lastRT[stickChannel] < driveDeadThresh) {
     return true;
   } else {
     return false;
   }
 }
 
-bool joystickFalling(controller_analog_e_t stickChannel) {
+bool joystickFalling(controllerIndices stickChannel) {
 
-  if (currJoyRT[stickChannel] < driveDeadThresh &&
-      lastJoyRT[stickChannel] >= driveDeadThresh) {
+  if (currRT[stickChannel] < driveDeadThresh &&
+      lastRT[stickChannel] >= driveDeadThresh) {
     return true;
   } else {
     return false;

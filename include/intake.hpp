@@ -2,8 +2,13 @@
 #define INTAKE_DEFINE_GUARD
 
 #include "api.h"
+#include "okapi/api.hpp"
+#include "ports.hpp"
 
-extern pros::Motor *intake;
+using namespace okapi;
+
+Motor intake(MPORT_INTAKE, false, AbstractMotor::gearset::red,
+             AbstractMotor::encoderUnits::degrees);
 
 void initIntakeMotors();
 void setIntake();

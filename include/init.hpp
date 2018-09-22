@@ -2,8 +2,11 @@
 #define INIT_DEFINE_GUARD
 
 #include "api.h"
+#include "okapi/api.hpp"
 
-using namespace pros;
+using namespace okapi;
+
+Controller controller;
 
 extern double liftTarget;
 extern double driveTarget;
@@ -16,6 +19,25 @@ extern float angularVelocity;
 extern unsigned int timeNow;
 
 // struct PID drivePID;
+
+enum controllerIndices {
+  leftX,
+  leftY,
+  rightX,
+  rightY,
+  L1,
+  L2,
+  R1,
+  R2,
+  Up,
+  Down,
+  Left,
+  Right,
+  X,
+  B,
+  Y,
+  A
+};
 
 typedef enum liftStates {
   liftNotRunning,
@@ -47,26 +69,17 @@ typedef enum intakeStates {
 
 extern tIntakeStates currIntakeState;
 
-extern int currJoyRT[4];
-
-extern int lastJoyRT[4];
-
-extern int currBtnRT[12];
-
-extern int lastBtnRT[12];
-
-extern pros::Controller *master;
-
-extern void initController();
+extern controllerIndices currRT[16];
+extern controllerIndices lastRT[16];
 
 extern void populateControlArrays();
 
-extern bool btnRising(controller_digital_e_t button);
+extern bool btnRising(controllerIndices button);
 
-extern bool btnFalling(controller_digital_e_t button);
+extern bool btnFalling(controllerIndices button);
 
-extern bool joystickRising(controller_analog_e_t stickChannel);
+extern bool joystickRising(controllerIndices stickChannel);
 
-extern bool joystickFalling(controller_analog_e_t stickChannel);
+extern bool joystickFalling(controllerIndices stickChannel);
 
 #endif

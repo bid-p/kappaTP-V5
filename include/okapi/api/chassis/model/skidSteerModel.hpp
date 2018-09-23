@@ -27,7 +27,7 @@ class SkidSteerModel : public ChassisModel {
    */
   SkidSteerModel(std::shared_ptr<AbstractMotor> ileftSideMotor,
                  std::shared_ptr<AbstractMotor> irightSideMotor,
-                 double imaxVelocity = 127,
+                 double imaxVelocity = 600,
                  double imaxVoltage = 12000);
 
   /**
@@ -43,7 +43,7 @@ class SkidSteerModel : public ChassisModel {
                  std::shared_ptr<AbstractMotor> irightSideMotor,
                  std::shared_ptr<ContinuousRotarySensor> ileftEnc,
                  std::shared_ptr<ContinuousRotarySensor> irightEnc,
-                 double imaxVelocity = 127,
+                 double imaxVelocity = 600,
                  double imaxVoltage = 12000);
 
   /**
@@ -88,11 +88,11 @@ class SkidSteerModel : public ChassisModel {
   /**
    * Drive the robot with an arcade drive layout. Uses voltage mode.
    *
-   * @param iySpeed speed on y axis (forward)
-   * @param izRotation speed around z axis (up)
+   * @param iforwardSpeed speed in the forward direction
+   * @param iyaw speed around the vertical axis
    * @param ithreshold deadband on joystick values
    */
-  void arcade(double iySpeed, double izRotation, double ithreshold = 0) const override;
+  void arcade(double iforwardSpeed, double iyaw, double ithreshold = 0) const override;
 
   /**
    * Power the left side motors. Uses velocity mode.
@@ -226,8 +226,6 @@ class SkidSteerModel : public ChassisModel {
   std::shared_ptr<AbstractMotor> rightSideMotor;
   std::shared_ptr<ContinuousRotarySensor> leftSensor;
   std::shared_ptr<ContinuousRotarySensor> rightSensor;
-  const double maxVelocity;
-  const double maxVoltage;
 };
 } // namespace okapi
 

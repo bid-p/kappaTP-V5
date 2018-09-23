@@ -6,7 +6,9 @@
 
 using namespace okapi;
 
-Controller controller;
+extern Controller controller;
+
+extern std::shared_ptr<ChassisControllerIntegrated> chassis;
 
 extern double liftTarget;
 extern double driveTarget;
@@ -21,22 +23,22 @@ extern unsigned int timeNow;
 // struct PID drivePID;
 
 enum controllerIndices {
-  leftX,
-  leftY,
-  rightX,
-  rightY,
-  L1,
-  L2,
-  R1,
-  R2,
-  Up,
-  Down,
-  Left,
-  Right,
-  X,
-  B,
-  Y,
-  A
+  leftX = 0,
+  leftY = 1,
+  rightX = 2,
+  rightY = 3,
+  L1 = 6,
+  L2 = 7,
+  R1 = 8,
+  R2 = 9,
+  Up = 10,
+  Down = 11,
+  Left = 12,
+  Right = 13,
+  X = 14,
+  B = 15,
+  Y = 16,
+  A = 17
 };
 
 typedef enum liftStates {
@@ -69,8 +71,8 @@ typedef enum intakeStates {
 
 extern tIntakeStates currIntakeState;
 
-extern controllerIndices currRT[16];
-extern controllerIndices lastRT[16];
+extern float currRT[18];
+extern float lastRT[18];
 
 extern void populateControlArrays();
 

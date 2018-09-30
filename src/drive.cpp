@@ -9,8 +9,8 @@ Motor driveR3(MPORT_DRIVE_R3, true, AbstractMotor::gearset::green);
 
 ChassisControllerIntegrated chassisController =
     ChassisControllerFactory::create(
-        {-MPORT_DRIVE_L1, -MPORT_DRIVE_L2, -MPORT_DRIVE_L3}, // Left motors
-        {MPORT_DRIVE_R1, MPORT_DRIVE_R2, MPORT_DRIVE_R2},    // Right motors
+        {MPORT_DRIVE_L1, MPORT_DRIVE_L2, MPORT_DRIVE_L3}, // Left motors
+        {-MPORT_DRIVE_R1, -MPORT_DRIVE_R2, -MPORT_DRIVE_R2},    // Right motors
         AbstractMotor::gearset::green,                       // Speed gearset
         {4_in, 12.5_in} // 4 inch wheels, 12.5 inch wheelbase width
     );

@@ -7,15 +7,26 @@ AsyncPosIntegratedController intakeController =
 
 tIntakeStates currIntakeState;
 
-ControllerButton intakeCloseBtn = ControllerDigital::L2;
-ControllerButton intakeOpenBtn = ControllerDigital::L1;
+ControllerButton intakeToggleBtn = ControllerDigital::L1;
+ControllerButton intakeCompleteOpenBtn = ControllerDigital::L2;
 
 void updateIntake() {
-  if (intakeCloseBtn.changedToPressed()) {
-    currIntakeState = intakeClosing;
+  if (intakeToggleBtn.changedToPressed()) {
+    switch(currIntakeState) {
+      case intakeClosing:
+        currIntakeState = intakeHalfOpen;
+        break;
+      case intakeFullOpen:
+      case intakeHalfOpen:
+        currIntakeState = intakeClosing;
+        break;
+      case intakeNotRunning:
+        currIntakeState = intakeHalfOpen;
+        break;
+    }
   }
-  if (intakeOpenBtn.changedToPressed()) {
-    currIntakeState = intakeOpen;
+  if(intakeCompleteOpenBtn.changedToPressed()) {
+    currIntakeState = intakeFullOpen;
   }
 }
 
@@ -25,11 +36,14 @@ void intakeAct() {
     break;
 
   case intakeClosing:
-    intake.moveVoltage(70);
+    intake.moveVoltage(12000);
     break;
 
-  case intakeOpen:
-    intakeController.setTarget(50);
+  case intakeHalfOpen:
+    intakeController.setTarget(150);
+    break;
+  case intakeFullOpen:
+    intakeController.setTarget(400);
     break;
   }
 }

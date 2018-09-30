@@ -6,6 +6,7 @@ AsyncPosIntegratedController liftController =
     AsyncControllerFactory::posIntegrated(MPORT_LIFT);
 
 tLiftStates currLiftState;
+double curPosition;
 
 ControllerButton liftUpBtn = ControllerDigital::R1;
 ControllerButton liftDownBtn = ControllerDigital::R2;
@@ -43,14 +44,17 @@ void liftAct() {
     break;
 
   case liftHolding:
+    liftController.setTarget(curPosition);
     break;
 
   case liftRising:
-    lift.moveVoltage(127);
+    lift.moveVoltage(12000);
+    curPosition = lift.getPosition();
     break;
 
   case liftFalling:
-    lift.moveVoltage(-127);
+    lift.moveVoltage(-12000);
+    curPosition = lift.getPosition();
     break;
 
   case liftLowPole:

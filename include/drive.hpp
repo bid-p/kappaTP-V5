@@ -28,6 +28,7 @@ typedef enum driveStates {
 } tDriveStates;
 
 extern tDriveStates currDriveState;
+extern char driveState;
 
 extern void updateDrive();
 

@@ -13,14 +13,14 @@ extern AsyncPosIntegratedController intakeController;
 typedef enum intakeStates {
   intakeNotRunning,
   intakeClosing,
-  intakeHalfOpen,
-  intakeFullOpen,
+  intakeOpen,
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;
+extern char intakeState;
 
-extern ControllerButton intakeToggleBtn;
-extern ControllerButton intakeCompleteOpenBtn;
+extern ControllerButton intakeCloseBtn;
+extern ControllerButton intakeOpenBtn;
 
 extern void updateIntake();
 

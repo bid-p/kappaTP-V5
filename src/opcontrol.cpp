@@ -29,6 +29,10 @@ void opcontrol() {
 
     checkAbortSubsystems();
 
+    pros::lcd::print(0, "%c", liftState);
+    pros::lcd::print(1, "%c", driveState);
+    pros::lcd::print(2, "%c", intakeState);
+
     driveAct();
     intakeAct();
     liftAct();

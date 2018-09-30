@@ -11,5 +11,8 @@ void checkAbortSubsystems() {
     currDriveState = driveNotRunning;
     currIntakeState = intakeNotRunning;
     currLiftState = liftNotRunning;
+    driveState = 'x';
+    liftState = 'x';
+    intakeState = 'x';
   }
 }

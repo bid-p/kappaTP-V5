@@ -6,7 +6,7 @@ AsyncPosIntegratedController liftController =
     AsyncControllerFactory::posIntegrated(MPORT_LIFT);
 
 tLiftStates currLiftState;
-double curPosition;
+char liftState = 'x';
 
 ControllerButton liftUpBtn = ControllerDigital::R1;
 ControllerButton liftDownBtn = ControllerDigital::R2;
@@ -18,23 +18,35 @@ ControllerButton liftGrabBtn = ControllerDigital::up;
 void updateLift() {
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
-  } else if (liftDownBtn.isPressed()) {
+    liftState = 'r';
+  }
+  if (liftDownBtn.isPressed()) {
     currLiftState = liftFalling;
+    liftState = 'f';
   }
   if (liftUpBtn.changedToReleased()) {
     currLiftState = liftHolding;
+    liftState = 'h';
   }
   if (liftDownBtn.changedToReleased()) {
     currLiftState = liftHolding;
+    liftState = 'h';
   }
   if (liftHighPoleBtn.changedToPressed()) {
     currLiftState = liftHighPole;
-  } else if (liftLowPoleBtn.changedToPressed()) {
+    liftState = 't';
+  }
+  if (liftLowPoleBtn.changedToPressed()) {
     currLiftState = liftLowPole;
-  } else if (liftFlipBtn.changedToPressed()) {
+    liftState = 'l';
+  }
+  if (liftFlipBtn.changedToPressed()) {
     currLiftState = liftFlip;
-  } else if (liftGrabBtn.changedToPressed()) {
+    liftState = 'f';
+  }
+  if (liftGrabBtn.changedToPressed()) {
     currLiftState = liftGrab;
+    liftState = 'g';
   }
 }
 
@@ -44,17 +56,15 @@ void liftAct() {
     break;
 
   case liftHolding:
-    liftController.setTarget(curPosition);
+    lift.moveVoltage(2000);
     break;
 
   case liftRising:
     lift.moveVoltage(12000);
-    curPosition = lift.getPosition();
     break;
 
   case liftFalling:
     lift.moveVoltage(-12000);
-    curPosition = lift.getPosition();
     break;
 
   case liftLowPole:

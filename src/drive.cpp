@@ -9,8 +9,8 @@ Motor driveR3(MPORT_DRIVE_R3, false, AbstractMotor::gearset::green);
 
 ChassisControllerIntegrated chassisController =
     ChassisControllerFactory::create(
-        {MPORT_DRIVE_L1, MPORT_DRIVE_L2, MPORT_DRIVE_L3}, // Left motors
-        {-MPORT_DRIVE_R1, -MPORT_DRIVE_R2, -MPORT_DRIVE_R3},    // Right motors
+        {MPORT_DRIVE_L1, MPORT_DRIVE_L2, MPORT_DRIVE_L3},    // Left motors
+        {-MPORT_DRIVE_R1, -MPORT_DRIVE_R2, -MPORT_DRIVE_R3}, // Right motors
         AbstractMotor::gearset::green,                       // Speed gearset
         {4_in, 12.5_in} // 4 inch wheels, 12.5 inch wheelbase width
     );
@@ -18,6 +18,7 @@ ChassisControllerIntegrated chassisController =
 ControllerButton driveHoldBtn = ControllerDigital::A;
 
 tDriveStates currDriveState;
+char driveState = 'x';
 
 void updateDrive() {
   currDriveState = driveRunning; // driveRunning is default state
@@ -30,9 +31,11 @@ void updateDrive() {
 void driveAct() {
   switch (currDriveState) {
   case driveNotRunning:
+    driveState = 'n';
     break;
 
   case driveRunning:
+    driveState = 'r';
     chassisController.setBrakeMode(AbstractMotor::brakeMode::brake);
     chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
                            controller.getAnalog(ControllerAnalog::rightY),
@@ -40,14 +43,17 @@ void driveAct() {
     break;
 
   case driveHolding:
+    driveState = 'h';
     chassisController.setBrakeMode(AbstractMotor::brakeMode::hold);
     break;
 
   case driveCoasting:
+    driveState = 'c';
     chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
     break;
 
   case driveTurnBraking:
+    driveState = 't';
     break;
   }
 }

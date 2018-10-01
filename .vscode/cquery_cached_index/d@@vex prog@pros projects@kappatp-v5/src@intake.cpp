@@ -6,16 +6,26 @@ AsyncPosIntegratedController intakeController =
     AsyncControllerFactory::posIntegrated(MPORT_INTAKE);
 
 tIntakeStates currIntakeState;
+char intakeState = 'x';
 
-ControllerButton intakeCloseBtn = ControllerDigital::L2;
-ControllerButton intakeOpenBtn = ControllerDigital::L1;
+// ControllerButton intakeCloseBtn = ControllerDigital::L2;
+ControllerButton intakeToggleBtn = controller[ControllerDigital::L1];
 
 void updateIntake() {
-  if (intakeCloseBtn.changedToPressed()) {
-    currIntakeState = intakeClosing;
-  }
-  if (intakeOpenBtn.changedToPressed()) {
-    currIntakeState = intakeOpen;
+  if (intakeToggleBtn.changedToPressed()) {
+    switch (currIntakeState) {
+    case intakeOpen:
+      currIntakeState = intakeClosing;
+      break;
+
+    case intakeClosing:
+      currIntakeState = intakeOpen;
+      break;
+
+    case intakeNotRunning:
+      currIntakeState = intakeOpen;
+      break;
+    }
   }
 }
 
@@ -29,7 +39,7 @@ void intakeAct() {
     break;
 
   case intakeOpen:
-    intakeController.setTarget(50);
+    intakeController.setTarget(70);
     break;
   }
 }

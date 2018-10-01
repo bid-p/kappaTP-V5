@@ -9,7 +9,7 @@ tIntakeStates currIntakeState;
 char intakeState = 'x';
 
 // ControllerButton intakeCloseBtn = ControllerDigital::L2;
-ControllerButton intakeToggleBtn = ControllerDigital::L1;
+ControllerButton intakeToggleBtn = controller[ControllerDigital::L1];
 
 void updateIntake() {
   if (intakeToggleBtn.changedToPressed()) {

@@ -12,10 +12,10 @@ ChassisControllerIntegrated chassisController =
         {MPORT_DRIVE_L1, MPORT_DRIVE_L2, MPORT_DRIVE_L3},    // Left motors
         {-MPORT_DRIVE_R1, -MPORT_DRIVE_R2, -MPORT_DRIVE_R3}, // Right motors
         AbstractMotor::gearset::green,                       // Speed gearset
-        {4_in, 12.5_in} // 4 inch wheels, 12.5 inch wheelbase width
+        {4_in, 9.867_in} // 4 inch wheels, 9.867 inch wheelbase width
     );
 
-ControllerButton driveHoldBtn = ControllerDigital::A;
+ControllerButton driveHoldBtn = controller[ControllerDigital::A];
 
 tDriveStates currDriveState;
 char driveState = 'x';

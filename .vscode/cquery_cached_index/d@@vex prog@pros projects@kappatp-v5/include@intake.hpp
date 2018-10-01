@@ -17,6 +17,7 @@ typedef enum intakeStates {
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;
+extern char intakeState;
 
 extern ControllerButton intakeCloseBtn;
 extern ControllerButton intakeOpenBtn;

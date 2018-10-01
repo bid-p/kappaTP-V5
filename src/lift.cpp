@@ -8,14 +8,17 @@ AsyncPosIntegratedController liftController =
 tLiftStates currLiftState;
 char liftState = 'x';
 
-ControllerButton liftUpBtn = ControllerDigital::R1;
-ControllerButton liftDownBtn = ControllerDigital::R2;
-ControllerButton liftLowPoleBtn = ControllerDigital::left;
-ControllerButton liftHighPoleBtn = ControllerDigital::right;
-ControllerButton liftFlipBtn = ControllerDigital::down;
-ControllerButton liftGrabBtn = ControllerDigital::up;
+ControllerButton liftUpBtn = controller[ControllerDigital::R1];
+ControllerButton liftDownBtn = controller[ControllerDigital::R2];
+ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
+ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
+ControllerButton liftFlipBtn = controller[ControllerDigital::down];
+ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
 void updateLift() {
+  currLiftState = liftHolding;
+  liftState = 'h';
+
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
     liftState = 'r';
@@ -24,30 +27,22 @@ void updateLift() {
     currLiftState = liftFalling;
     liftState = 'f';
   }
-  if (liftUpBtn.changedToReleased()) {
-    currLiftState = liftHolding;
-    liftState = 'h';
-  }
-  if (liftDownBtn.changedToReleased()) {
-    currLiftState = liftHolding;
-    liftState = 'h';
-  }
-  if (liftHighPoleBtn.changedToPressed()) {
-    currLiftState = liftHighPole;
-    liftState = 't';
-  }
-  if (liftLowPoleBtn.changedToPressed()) {
-    currLiftState = liftLowPole;
-    liftState = 'l';
-  }
-  if (liftFlipBtn.changedToPressed()) {
-    currLiftState = liftFlip;
-    liftState = 'f';
-  }
-  if (liftGrabBtn.changedToPressed()) {
-    currLiftState = liftGrab;
-    liftState = 'g';
-  }
+  // if (liftHighPoleBtn.changedToPressed()) {
+  //   currLiftState = liftHighPole;
+  //   liftState = 't';
+  // }
+  // if (liftLowPoleBtn.changedToPressed()) {
+  //   currLiftState = liftLowPole;
+  //   liftState = 'l';
+  // }
+  // if (liftFlipBtn.changedToPressed()) {
+  //   currLiftState = liftFlip;
+  //   liftState = 'f';
+  // }
+  // if (liftGrabBtn.changedToPressed()) {
+  //   currLiftState = liftGrab;
+  //   liftState = 'g';
+  // }
 }
 
 void liftAct() {
@@ -56,7 +51,7 @@ void liftAct() {
     break;
 
   case liftHolding:
-    lift.moveVoltage(2000);
+    lift.moveVelocity(0);
     break;
 
   case liftRising:

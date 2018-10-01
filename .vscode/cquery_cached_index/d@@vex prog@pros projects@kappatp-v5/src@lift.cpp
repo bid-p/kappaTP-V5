@@ -6,35 +6,43 @@ AsyncPosIntegratedController liftController =
     AsyncControllerFactory::posIntegrated(MPORT_LIFT);
 
 tLiftStates currLiftState;
+char liftState = 'x';
 
-ControllerButton liftUpBtn = ControllerDigital::R1;
-ControllerButton liftDownBtn = ControllerDigital::R2;
-ControllerButton liftLowPoleBtn = ControllerDigital::left;
-ControllerButton liftHighPoleBtn = ControllerDigital::right;
-ControllerButton liftFlipBtn = ControllerDigital::down;
-ControllerButton liftGrabBtn = ControllerDigital::up;
+ControllerButton liftUpBtn = controller[ControllerDigital::R1];
+ControllerButton liftDownBtn = controller[ControllerDigital::R2];
+ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
+ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
+ControllerButton liftFlipBtn = controller[ControllerDigital::down];
+ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
 void updateLift() {
+  currLiftState = liftHolding;
+  liftState = 'h';
+
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
-  } else if (liftDownBtn.isPressed()) {
+    liftState = 'r';
+  }
+  if (liftDownBtn.isPressed()) {
     currLiftState = liftFalling;
+    liftState = 'f';
   }
-  if (liftUpBtn.changedToReleased()) {
-    currLiftState = liftHolding;
-  }
-  if (liftDownBtn.changedToReleased()) {
-    currLiftState = liftHolding;
-  }
-  if (liftHighPoleBtn.changedToPressed()) {
-    currLiftState = liftHighPole;
-  } else if (liftLowPoleBtn.changedToPressed()) {
-    currLiftState = liftLowPole;
-  } else if (liftFlipBtn.changedToPressed()) {
-    currLiftState = liftFlip;
-  } else if (liftGrabBtn.changedToPressed()) {
-    currLiftState = liftGrab;
-  }
+  // if (liftHighPoleBtn.changedToPressed()) {
+  //   currLiftState = liftHighPole;
+  //   liftState = 't';
+  // }
+  // if (liftLowPoleBtn.changedToPressed()) {
+  //   currLiftState = liftLowPole;
+  //   liftState = 'l';
+  // }
+  // if (liftFlipBtn.changedToPressed()) {
+  //   currLiftState = liftFlip;
+  //   liftState = 'f';
+  // }
+  // if (liftGrabBtn.changedToPressed()) {
+  //   currLiftState = liftGrab;
+  //   liftState = 'g';
+  // }
 }
 
 void liftAct() {
@@ -43,14 +51,15 @@ void liftAct() {
     break;
 
   case liftHolding:
+    lift.moveVelocity(0);
     break;
 
   case liftRising:
-    lift.moveVoltage(127);
+    lift.moveVoltage(12000);
     break;
 
   case liftFalling:
-    lift.moveVoltage(-127);
+    lift.moveVoltage(-12000);
     break;
 
   case liftLowPole:

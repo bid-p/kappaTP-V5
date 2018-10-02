@@ -36,7 +36,7 @@ void driveAct() {
 
   case driveRunning:
     driveState = 'r';
-    chassisController.setBrakeMode(AbstractMotor::brakeMode::brake);
+    chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
     chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
                            controller.getAnalog(ControllerAnalog::rightY),
                            joyDeadband);

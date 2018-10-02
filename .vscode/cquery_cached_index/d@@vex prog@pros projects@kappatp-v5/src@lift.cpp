@@ -16,6 +16,8 @@ ControllerButton liftFlipBtn = controller[ControllerDigital::down];
 ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
 void updateLift() {
+  lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+
   currLiftState = liftHolding;
   liftState = 'h';
 

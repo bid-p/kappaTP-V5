@@ -21,7 +21,11 @@ tDriveStates currDriveState;
 char driveState = 'x';
 
 void updateDrive() {
-  currDriveState = driveRunning; // driveRunning is default state
+
+  if (abs(controller.getAnalog(ControllerAnalog::leftY)) > .08 ||
+      abs(controller.getAnalog(ControllerAnalog::rightY)) > .08) {
+    currDriveState = driveRunning;
+  }
 
   if (driveHoldBtn.changedToPressed()) {
     currDriveState = driveHolding;
@@ -31,7 +35,8 @@ void updateDrive() {
 void driveAct() {
   switch (currDriveState) {
   case driveNotRunning:
-    driveState = 'n';
+    chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
+    chassisController.tank(0, 0, 0);
     break;
 
   case driveRunning:
@@ -45,15 +50,6 @@ void driveAct() {
   case driveHolding:
     driveState = 'h';
     chassisController.setBrakeMode(AbstractMotor::brakeMode::hold);
-    break;
-
-  case driveCoasting:
-    driveState = 'c';
-    chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
-    break;
-
-  case driveTurnBraking:
-    driveState = 't';
     break;
   }
 }

@@ -22,12 +22,10 @@ typedef enum driveStates {
   driveNotRunning,
   driveRunning,
   driveHolding,
-  driveCoasting,
-  driveTurnBraking,
-  // drivePoleMacro,
 } tDriveStates;
 
 extern tDriveStates currDriveState;
+
 extern char driveState;
 
 extern void updateDrive();

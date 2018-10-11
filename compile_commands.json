@@ -28,11 +28,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/lift.cpp.o",
-            "src\\lift.cpp"
+            "bin/drive.cpp.o",
+            "src\\drive.cpp"
         ],
         "directory": "D:\\VEX Prog\\PROS Projects\\kappaTP-V5",
-        "file": "src\\lift.cpp"
+        "file": "src\\drive.cpp"
     },
     {
         "arguments": [
@@ -98,11 +98,11 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/opcontrol.cpp.o",
-            "src\\opcontrol.cpp"
+            "bin/lift.cpp.o",
+            "src\\lift.cpp"
         ],
         "directory": "D:\\VEX Prog\\PROS Projects\\kappaTP-V5",
-        "file": "src\\opcontrol.cpp"
+        "file": "src\\lift.cpp"
     },
     {
         "arguments": [
@@ -133,10 +133,10 @@
             "-fdiagnostics-color",
             "--std=gnu++17",
             "-o",
-            "bin/drive.cpp.o",
-            "src\\drive.cpp"
+            "bin/opcontrol.cpp.o",
+            "src\\opcontrol.cpp"
         ],
         "directory": "D:\\VEX Prog\\PROS Projects\\kappaTP-V5",
-        "file": "src\\drive.cpp"
+        "file": "src\\opcontrol.cpp"
     }
 ]

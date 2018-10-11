@@ -23,7 +23,10 @@ typedef enum liftStates {
 
 extern double liftPosition;
 
+extern char liftState;
+
 extern tLiftStates currLiftState;
+
 extern char liftState;
 
 extern ControllerButton liftUpBtn;

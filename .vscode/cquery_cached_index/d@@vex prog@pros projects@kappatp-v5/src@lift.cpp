@@ -18,7 +18,7 @@ ControllerButton liftFlipBtn = controller[ControllerDigital::down];
 ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
 void updateLift() {
-  lift.setBrakeMode(AbstractMotor::brakeMode::hold);
+  // lift.setBrakeMode(AbstractMotor::brakeMode::hold);
 
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
@@ -59,6 +59,8 @@ void updateLift() {
 void liftAct() {
   switch (currLiftState) {
   case liftNotRunning:
+    lift.setBrakeMode(AbstractMotor::brakeMode::coast);
+    lift.moveVoltage(0);
     break;
 
   case liftHolding:

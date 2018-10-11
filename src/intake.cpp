@@ -7,7 +7,8 @@ AsyncPosIntegratedController intakeController =
 
 tIntakeStates currIntakeState;
 char intakeState = 'i';
-double holdPosition;
+
+double intakePosition;
 
 ControllerButton intakeCloseBtn = ControllerDigital::L2;
 ControllerButton intakeOpenBtn = controller[ControllerDigital::L1];
@@ -17,10 +18,10 @@ void updateIntake() {
     currIntakeState = intakeClosing;
     intakeState = 'c';
   }
- if (intakeCloseBtn.changedToReleased()){
-    currIntakeState = intakeNotRunning;
+  if (intakeCloseBtn.changedToReleased()) {
+    currIntakeState = intakeHolding;
+    intakePosition = intake.getPosition();
     intakeState = 'x';
-    holdPosition = intake.getPosition();
   }
   if (intakeOpenBtn.changedToPressed()) {
     currIntakeState = intakeOpen;
@@ -31,7 +32,12 @@ void updateIntake() {
 void intakeAct() {
   switch (currIntakeState) {
   case intakeNotRunning:
-    intake.moveAbsolute(holdPosition, 200);
+    intake.setBrakeMode(AbstractMotor::brakeMode::coast);
+    intake.moveVoltage(0);
+    break;
+
+  case intakeHolding:
+    intake.moveAbsolute(intakePosition, 200);
     break;
 
   case intakeClosing:

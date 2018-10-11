@@ -21,6 +21,8 @@ typedef enum liftStates {
   liftGrab,
 } tLiftStates;
 
+extern double liftPosition;
+
 extern tLiftStates currLiftState;
 extern char liftState;
 

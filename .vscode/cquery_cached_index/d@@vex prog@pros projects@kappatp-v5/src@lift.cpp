@@ -8,6 +8,8 @@ AsyncPosIntegratedController liftController =
 tLiftStates currLiftState;
 char liftState = 'x';
 
+double liftPosition;
+
 ControllerButton liftUpBtn = controller[ControllerDigital::R1];
 ControllerButton liftDownBtn = controller[ControllerDigital::R2];
 ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
@@ -18,9 +20,6 @@ ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 void updateLift() {
   lift.setBrakeMode(AbstractMotor::brakeMode::hold);
 
-  currLiftState = liftHolding;
-  liftState = 'h';
-
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
     liftState = 'r';
@@ -29,22 +28,32 @@ void updateLift() {
     currLiftState = liftFalling;
     liftState = 'f';
   }
-  // if (liftHighPoleBtn.changedToPressed()) {
-  //   currLiftState = liftHighPole;
-  //   liftState = 't';
-  // }
-  // if (liftLowPoleBtn.changedToPressed()) {
-  //   currLiftState = liftLowPole;
-  //   liftState = 'l';
-  // }
-  // if (liftFlipBtn.changedToPressed()) {
-  //   currLiftState = liftFlip;
-  //   liftState = 'f';
-  // }
-  // if (liftGrabBtn.changedToPressed()) {
-  //   currLiftState = liftGrab;
-  //   liftState = 'g';
-  // }
+  if (liftUpBtn.changedToReleased()) {
+    liftPosition = lift.getPosition();
+    currLiftState = liftHolding;
+    liftState = 'h';
+  }
+  if (liftDownBtn.changedToReleased()) {
+    liftPosition = lift.getPosition();
+    currLiftState = liftHolding;
+    liftState = 'h';
+  }
+  if (liftHighPoleBtn.changedToPressed()) {
+    currLiftState = liftHighPole;
+    liftState = 't';
+  }
+  if (liftLowPoleBtn.changedToPressed()) {
+    currLiftState = liftLowPole;
+    liftState = 'l';
+  }
+  if (liftFlipBtn.changedToPressed()) {
+    currLiftState = liftFlip;
+    liftState = 'f';
+  }
+  if (liftGrabBtn.changedToPressed()) {
+    currLiftState = liftGrab;
+    liftState = 'g';
+  }
 }
 
 void liftAct() {
@@ -53,7 +62,7 @@ void liftAct() {
     break;
 
   case liftHolding:
-    lift.moveVelocity(0);
+    lift.moveAbsolute(liftPosition, 200);
     break;
 
   case liftRising:
@@ -65,19 +74,19 @@ void liftAct() {
     break;
 
   case liftLowPole:
-    liftController.setTarget(50);
+    lift.moveAbsolute(50, 200);
     break;
 
   case liftHighPole:
-    liftController.setTarget(50);
+    lift.moveAbsolute(50, 200);
     break;
 
   case liftFlip:
-    liftController.setTarget(50);
+    lift.moveAbsolute(50, 200);
     break;
 
   case liftGrab:
-    liftController.setTarget(50);
+    lift.moveAbsolute(50, 200);
     break;
   }
 }

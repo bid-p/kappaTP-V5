@@ -8,6 +8,8 @@ using namespace okapi;
 
 extern Motor lift;
 
+extern pros::ADIPotentiometer liftPOT;
+
 extern AsyncPosIntegratedController liftController;
 
 typedef enum liftStates {
@@ -22,6 +24,11 @@ typedef enum liftStates {
 } tLiftStates;
 
 extern double liftPosition;
+
+extern const int lowPoleVal;
+extern const int highPoleVal;
+extern const int liftFlipVal;
+extern const int liftGrabVal;
 
 extern char liftState;
 

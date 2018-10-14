@@ -17,6 +17,8 @@ void opcontrol() {
   currDriveState = driveNotRunning;
   currIntakeState = intakeNotRunning;
   currLiftState = liftNotRunning;
+  // autonomous();
+  pros::lcd::print(0, "Driver Control:");
   while (true) {
     pros::lcd::print(0, "%d %d %d",
                      (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -29,10 +31,7 @@ void opcontrol() {
 
     checkAbortSubsystems();
 
-    pros::lcd::print(0, "Lift State: %c | Lift Temp: %i", liftState,
-                     (int)lift.get_temperature());
-    pros::lcd::print(1, "Drive State: %c", driveState);
-    pros::lcd::print(2, "Intake State:%c", intakeState);
+    robotStats();
 
     driveAct();
     intakeAct();

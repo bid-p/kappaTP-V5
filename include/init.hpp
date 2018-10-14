@@ -14,4 +14,6 @@ extern const double joyDeadband;
 
 extern void checkAbortSubsystems();
 
+extern void robotStats();
+
 #endif

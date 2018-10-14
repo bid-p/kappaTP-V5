@@ -2,6 +2,8 @@
 
 Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::green);
 
+pros::ADIPotentiometer liftPOT(1);
+
 AsyncPosIntegratedController liftController =
     AsyncControllerFactory::posIntegrated(MPORT_LIFT);
 
@@ -9,6 +11,11 @@ tLiftStates currLiftState;
 char liftState = 'x';
 
 double liftPosition;
+
+const int lowPoleVal = 1800;
+const int highPoleVal = 2000;
+const int liftFlipVal = 580;
+const int liftGrabVal = 2000;
 
 ControllerButton liftUpBtn = controller[ControllerDigital::R1];
 ControllerButton liftDownBtn = controller[ControllerDigital::R2];
@@ -76,19 +83,63 @@ void liftAct() {
     break;
 
   case liftLowPole:
-    lift.moveAbsolute(50, 200);
+    if (liftPOT.get_value_calibrated() < lowPoleVal - 5) {
+      lift.moveVelocity(200);
+      liftState = liftLowPole;
+    }
+    if (liftPOT.get_value_calibrated() > lowPoleVal + 5) {
+      lift.moveVelocity(-200);
+      liftState = liftLowPole;
+    }
+    if (liftPOT.get_value_calibrated() > lowPoleVal - 5 &&
+        liftPOT.get_value_calibrated() < lowPoleVal + 5) {
+      liftState = liftHolding;
+    }
     break;
 
   case liftHighPole:
-    lift.moveAbsolute(50, 200);
+    if (liftPOT.get_value_calibrated() < highPoleVal - 5) {
+      lift.moveVelocity(200);
+      liftState = liftHighPole;
+    }
+    if (liftPOT.get_value_calibrated() > highPoleVal + 5) {
+      lift.moveVelocity(-200);
+      liftState = liftHighPole;
+    }
+    if (liftPOT.get_value_calibrated() > highPoleVal - 5 &&
+        liftPOT.get_value_calibrated() < highPoleVal + 5) {
+      liftState = liftHolding;
+    }
     break;
 
   case liftFlip:
-    lift.moveAbsolute(50, 200);
+    if (liftPOT.get_value_calibrated() < liftFlipVal - 5) {
+      lift.moveVelocity(200);
+      liftState = liftFlip;
+    }
+    if (liftPOT.get_value_calibrated() > liftFlipVal + 5) {
+      lift.moveVelocity(-200);
+      liftState = liftFlip;
+    }
+    if (liftPOT.get_value_calibrated() > liftFlipVal - 5 &&
+        liftPOT.get_value_calibrated() < liftFlipVal + 5) {
+      liftState = liftHolding;
+    }
     break;
 
   case liftGrab:
-    lift.moveAbsolute(50, 200);
+    if (liftPOT.get_value_calibrated() < liftGrabVal - 5) {
+      lift.moveVelocity(200);
+      liftState = liftGrab;
+    }
+    if (liftPOT.get_value_calibrated() > liftGrabVal + 5) {
+      lift.moveVelocity(-200);
+      liftState = liftGrab;
+    }
+    if (liftPOT.get_value_calibrated() > liftGrabVal - 5 &&
+        liftPOT.get_value_calibrated() < liftGrabVal + 5) {
+      liftState = liftHolding;
+    }
     break;
   }
 }

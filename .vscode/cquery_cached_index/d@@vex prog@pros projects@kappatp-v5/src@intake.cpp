@@ -45,7 +45,7 @@ void intakeAct() {
     break;
 
   case intakeOpen:
-    intake.moveAbsolute(120, 200);
+    intake.moveAbsolute(420, 200);
     break;
   }
 }

@@ -11,4 +11,23 @@
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+  pros::lcd::print(0, "%d %d %d",
+                   (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+                   (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+                   (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+  pros::lcd::print(0, "Autonomous:");
+
+  // low flags then park
+  lift.move_relative(0, 50);
+  chassisController.moveDistanceAsync(-3.5_ft);
+  pros::delay(200);
+  chassisController.moveDistance(3.5_ft);
+  pros::delay(200);
+  chassisController.turnAngle(-45_deg);
+
+  while (true) {
+    robotStats();
+    pros::delay(10);
+  }
+}

@@ -1,3 +1,4 @@
+#include "drive.hpp"
 #include "main.h"
 
 /**
@@ -18,13 +19,40 @@ void autonomous() {
                    (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
   pros::lcd::print(0, "Autonomous:");
 
-  // low flags then park
+  // low flag, single cap, then park   CLOSE TILE RED SIDE
+
+  setChassisCurrent(700);
+  chassisController.setMaxVelocity(200);
   lift.move_relative(0, 50);
-  chassisController.moveDistanceAsync(-3.5_ft);
-  pros::delay(200);
-  chassisController.moveDistance(3.5_ft);
-  pros::delay(200);
-  chassisController.turnAngle(-45_deg);
+  chassisController.moveDistance(-40_in);
+  pros::delay(300);
+  chassisController.moveDistance(40_in);
+  pros::delay(300);
+  chassisController.turnAngle(-85_deg);
+  pros::delay(300);
+  // // chassisController.forward(-.25);
+  // // pros::delay(800);
+  // // chassisController.forward(.25);
+  // pros::delay(500);
+  lift.moveAbsolute(50, 150);
+  // intake.moveAbsolute(420, 100);
+  lift.moveAbsolute(0, 150);
+  chassisController.moveDistance(38_in);
+  pros::delay(300);
+  // intake.moveAbsolute(555, 100);
+  pros::delay(500);
+  chassisController.moveDistance(-2_in);
+  pros::delay(500);
+  chassisController.turnAngle(85_deg);
+  pros::delay(300);
+  chassisController.moveDistance(-10_in);
+  lift.moveAbsolute(100, 150);
+  pros::delay(300);
+  chassisController.setMaxVelocity(200);
+  setChassisCurrent(50000);
+  chassisController.moveDistance(65_in);
+  chassisController.setMaxVelocity(200);
+  setChassisCurrent(50000);
 
   while (true) {
     robotStats();

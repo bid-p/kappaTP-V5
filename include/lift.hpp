@@ -27,8 +27,8 @@ extern double liftPosition;
 
 extern const int lowPoleVal;
 extern const int highPoleVal;
-extern const int liftFlipVal;
-extern const int liftGrabVal;
+extern const int flipVal;
+extern const int grabVal;
 
 extern char liftState;
 
@@ -42,6 +42,8 @@ extern ControllerButton liftLowPoleBtn;
 extern ControllerButton liftHighPoleBtn;
 extern ControllerButton liftFlipBtn;
 extern ControllerButton liftGrabBtn;
+
+extern void liftMacro();
 
 extern void updateLift();
 

@@ -53,3 +53,36 @@ void driveAct() {
     break;
   }
 }
+
+void chassisMoveDistanceAsyncVel(QLength distance, double maxVel) {
+  chassisController.setMaxVelocity(maxVel);
+  chassisController.moveDistanceAsync(distance);
+  chassisController.setMaxVelocity(200);
+}
+
+void chassisTurnAngleAsyncVel(QAngle angle, double maxVel) {
+  chassisController.setMaxVelocity(maxVel);
+  chassisController.turnAngleAsync(angle);
+  chassisController.setMaxVelocity(200);
+}
+
+void chassisMoveDistanceVel(QLength distance, double maxVel) {
+  chassisController.setMaxVelocity(maxVel);
+  chassisController.moveDistance(distance);
+  chassisController.setMaxVelocity(200);
+}
+
+void chassisTurnAngleVel(QAngle angle, double maxVel) {
+  chassisController.setMaxVelocity(maxVel);
+  chassisController.turnAngle(angle);
+  chassisController.setMaxVelocity(200);
+}
+
+void setChassisCurrent(int current) {
+  driveR1.setCurrentLimit(current);
+  driveR2.setCurrentLimit(current);
+  driveR3.setCurrentLimit(current);
+  driveL1.setCurrentLimit(current);
+  driveL2.setCurrentLimit(current);
+  driveL3.setCurrentLimit(current);
+}

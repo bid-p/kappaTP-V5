@@ -14,8 +14,8 @@ double liftPosition;
 
 const int lowPoleVal = 1800;
 const int highPoleVal = 2000;
-const int liftFlipVal = 580;
-const int liftGrabVal = 2000;
+const int flipVal = 580;
+const int grabVal = 2000;
 
 ControllerButton liftUpBtn = controller[ControllerDigital::R1];
 ControllerButton liftDownBtn = controller[ControllerDigital::R2];
@@ -24,9 +24,23 @@ ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
 ControllerButton liftFlipBtn = controller[ControllerDigital::down];
 ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
+void liftMacro(int targetVal, int threshold, tLiftStates macroState) {
+  if (liftPOT.get_value_calibrated() < targetVal - threshold) {
+    lift.moveVelocity(200);
+    currLiftState = macroState;
+  }
+  if (liftPOT.get_value_calibrated() > targetVal + threshold) {
+    lift.moveVelocity(-200);
+    currLiftState = macroState;
+  }
+  if (liftPOT.get_value_calibrated() > targetVal - threshold &&
+      liftPOT.get_value_calibrated() < targetVal + threshold) {
+    currLiftState = liftHolding;
+  }
+}
+
 void updateLift() {
   // lift.setBrakeMode(AbstractMotor::brakeMode::hold);
-
   if (liftUpBtn.isPressed()) {
     currLiftState = liftRising;
     liftState = 'r';
@@ -71,7 +85,7 @@ void liftAct() {
     break;
 
   case liftHolding:
-    lift.moveAbsolute(liftPosition, 200);
+    lift.moveAbsolute(liftPosition, 175);
     break;
 
   case liftRising:
@@ -83,63 +97,19 @@ void liftAct() {
     break;
 
   case liftLowPole:
-    if (liftPOT.get_value_calibrated() < lowPoleVal - 5) {
-      lift.moveVelocity(200);
-      liftState = liftLowPole;
-    }
-    if (liftPOT.get_value_calibrated() > lowPoleVal + 5) {
-      lift.moveVelocity(-200);
-      liftState = liftLowPole;
-    }
-    if (liftPOT.get_value_calibrated() > lowPoleVal - 5 &&
-        liftPOT.get_value_calibrated() < lowPoleVal + 5) {
-      liftState = liftHolding;
-    }
+    liftMacro(lowPoleVal, 5, liftLowPole);
     break;
 
   case liftHighPole:
-    if (liftPOT.get_value_calibrated() < highPoleVal - 5) {
-      lift.moveVelocity(200);
-      liftState = liftHighPole;
-    }
-    if (liftPOT.get_value_calibrated() > highPoleVal + 5) {
-      lift.moveVelocity(-200);
-      liftState = liftHighPole;
-    }
-    if (liftPOT.get_value_calibrated() > highPoleVal - 5 &&
-        liftPOT.get_value_calibrated() < highPoleVal + 5) {
-      liftState = liftHolding;
-    }
+    liftMacro(highPoleVal, 5, liftHighPole);
     break;
 
   case liftFlip:
-    if (liftPOT.get_value_calibrated() < liftFlipVal - 5) {
-      lift.moveVelocity(200);
-      liftState = liftFlip;
-    }
-    if (liftPOT.get_value_calibrated() > liftFlipVal + 5) {
-      lift.moveVelocity(-200);
-      liftState = liftFlip;
-    }
-    if (liftPOT.get_value_calibrated() > liftFlipVal - 5 &&
-        liftPOT.get_value_calibrated() < liftFlipVal + 5) {
-      liftState = liftHolding;
-    }
+    liftMacro(flipVal, 5, liftFlip);
     break;
 
   case liftGrab:
-    if (liftPOT.get_value_calibrated() < liftGrabVal - 5) {
-      lift.moveVelocity(200);
-      liftState = liftGrab;
-    }
-    if (liftPOT.get_value_calibrated() > liftGrabVal + 5) {
-      lift.moveVelocity(-200);
-      liftState = liftGrab;
-    }
-    if (liftPOT.get_value_calibrated() > liftGrabVal - 5 &&
-        liftPOT.get_value_calibrated() < liftGrabVal + 5) {
-      liftState = liftHolding;
-    }
+    liftMacro(grabVal, 5, liftGrab);
     break;
   }
 }

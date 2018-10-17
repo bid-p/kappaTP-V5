@@ -32,4 +32,14 @@ extern void updateDrive();
 
 extern void driveAct();
 
+extern void chassisMoveDistanceAsyncVel(QLength distance, double maxVel);
+
+extern void chassisTurnAngleAsyncVel(QAngle angle, double maxVel);
+
+extern void chassisMoveDistanceVel(QLength distance, double maxVel);
+
+extern void chassisTurnAngleVel(QAngle angle, double maxVel);
+
+extern void setChassisCurrent(int current);
+
 #endif

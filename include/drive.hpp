@@ -2,8 +2,8 @@
 #define DRIVE_GUARD
 
 #include "api.h"
+#include "customAMPController.hpp"
 #include "okapi/api.hpp"
-#include "ports.hpp"
 
 using namespace okapi;
 
@@ -15,6 +15,8 @@ extern Motor driveL2;
 extern Motor driveL3;
 
 extern ChassisControllerIntegrated chassisController;
+
+extern CustomAMPController profileController;
 
 extern ControllerButton driveHoldBtn;
 

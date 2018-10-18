@@ -15,6 +15,12 @@ ChassisControllerIntegrated chassisController =
         {4_in, 9.867_in} // 4 inch wheels, 9.867 inch wheelbase width
     );
 
+CustomAMPController profileController(TimeUtilFactory::create(), 1.09, 4.0,
+                                      10.0, // maxvel, accel, max jerk
+                                      chassisController.getChassisModel(),
+                                      chassisController.getChassisScales(),
+                                      AbstractMotor::gearset::green);
+
 ControllerButton driveHoldBtn = controller[ControllerDigital::A];
 
 tDriveStates currDriveState;

@@ -43,6 +43,7 @@
 //#include "pros/api_legacy.h"
 #include "okapi/api.hpp"
 //
+#include "autons.hpp"
 #include "customAMPController.hpp"
 #include "drive.hpp"
 #include "init.hpp"

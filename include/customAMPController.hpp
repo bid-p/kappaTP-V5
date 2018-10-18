@@ -31,9 +31,10 @@ public:
           ", " +
           std::to_string(
               rightRPM /*/ toUnderlyingType(AbstractMotor::gearset::green)*/));
-      model->left(leftRPM /
-                  okapi::toUnderlyingType(AbstractMotor::gearset::green));
-      model->right(rightRPM / toUnderlyingType(AbstractMotor::gearset::green));
+      model->left(leftRPM / 200.0
+                  /*toUnderlyingType(AbstractMotor::gearset::green)*/);
+      model->right(rightRPM / 200.0
+                   /*toUnderlyingType(AbstractMotor::gearset::green)*/);
 
       rate->delayUntil(1_ms);
     }

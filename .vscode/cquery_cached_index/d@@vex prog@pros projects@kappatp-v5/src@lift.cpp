@@ -26,11 +26,11 @@ ControllerButton liftGrabBtn = controller[ControllerDigital::up];
 
 void liftMacro(int targetVal, int threshold, tLiftStates macroState) {
   if (liftPOT.get_value_calibrated() < targetVal - threshold) {
-    lift.moveVelocity(200);
+    lift.moveVelocity(100);
     currLiftState = macroState;
   }
   if (liftPOT.get_value_calibrated() > targetVal + threshold) {
-    lift.moveVelocity(-200);
+    lift.moveVelocity(-100);
     currLiftState = macroState;
   }
   if (liftPOT.get_value_calibrated() > targetVal - threshold &&
@@ -85,7 +85,7 @@ void liftAct() {
     break;
 
   case liftHolding:
-    lift.moveAbsolute(liftPosition, 175);
+    lift.moveAbsolute(liftPosition, 100);
     break;
 
   case liftRising:

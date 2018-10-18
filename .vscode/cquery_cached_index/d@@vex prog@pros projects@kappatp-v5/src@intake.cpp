@@ -21,7 +21,7 @@ void updateIntake() {
   if (intakeCloseBtn.changedToReleased()) {
     currIntakeState = intakeHolding;
     intakePosition = intake.getPosition();
-    intakeState = 'x';
+    intakeState = 'h';
   }
   if (intakeOpenBtn.changedToPressed()) {
     currIntakeState = intakeOpen;
@@ -45,7 +45,7 @@ void intakeAct() {
     break;
 
   case intakeOpen:
-    intake.moveAbsolute(420, 100);
+    intake.moveAbsolute(420, 200);
     break;
   }
 }

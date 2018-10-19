@@ -9,16 +9,17 @@ void initLeftCloseAuton() {
       "Return From Flag Hit");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{30_in, 0_ft, 0_deg}}, "Move To Cap");
-
-  profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To Cap");
-
+      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "Move To Cap");
+  // profileController.generatePath(
+  //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To
+  //     Cap");
+  //
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{4_in, 0_ft, 0_deg}}, "Back From Cap");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Reverse To Park");
+      {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Reverse To
+      Park");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{55_in, 0_ft, 0_deg}}, "Park");
@@ -41,8 +42,8 @@ void executeLeftCloseAuton() {
   profileController.setTarget("Move To Cap");
   profileController.waitUntilSettled();
 
-  profileController.setTarget("Closer To Cap");
-  profileController.waitUntilSettled();
+  // profileController.setTarget("Closer To Cap");
+  // profileController.waitUntilSettled();
 
   intake.moveAbsolute(555, 200);
 
@@ -52,7 +53,7 @@ void executeLeftCloseAuton() {
 
   chassisController.turnAngle(90_deg);
 
-  profileController.reverse();
+  // profileController.reverse();
   profileController.setTarget("Reverse To Park");
   profileController.waitUntilSettled();
 

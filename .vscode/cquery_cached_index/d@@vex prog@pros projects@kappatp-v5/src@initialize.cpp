@@ -17,13 +17,17 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+
+  Logger::initialize(TimeUtilFactory::create().getTimer(), "/ser/sout",
+                     Logger::LogLevel::debug);
+
   pros::lcd::initialize();
 
   pros::lcd::register_btn1_cb(on_center_button);
 
   profileController.startThread();
 
-  initLeftCloseAuton();
+  initRightCloseAuton();
 
   liftPOT.calibrate();
 }

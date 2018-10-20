@@ -10,4 +10,7 @@ extern void executeLeftFarAuton();
 extern void initRightCloseAuton();
 extern void executeRightCloseAuton();
 
+extern void initRightFarAuton();
+extern void executeRightFarAuton();
+
 #endif

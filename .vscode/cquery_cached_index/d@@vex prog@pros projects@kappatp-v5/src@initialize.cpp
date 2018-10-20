@@ -27,7 +27,10 @@ void initialize() {
 
   profileController.startThread();
 
+  // initLeftCloseAuton();
+  // initLeftFarAuton();
   initRightCloseAuton();
+  // initRightFarAuton();
 
   liftPOT.calibrate();
 }

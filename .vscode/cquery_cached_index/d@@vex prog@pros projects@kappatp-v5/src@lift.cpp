@@ -1,6 +1,6 @@
 #include "main.h"
 
-Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::green);
+Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::red);
 
 pros::ADIPotentiometer liftPOT(1);
 
@@ -97,19 +97,24 @@ void liftAct() {
     break;
 
   case liftLowPole:
-    liftMacro(lowPoleVal, 5, liftLowPole);
+    // liftMacro(lowPoleVal, 5, liftLowPole);
+    lift.moveAbsolute(/*680*/ 543, 200);
     break;
 
   case liftHighPole:
-    liftMacro(highPoleVal, 5, liftHighPole);
+    lift.moveAbsolute(1150, 200);
     break;
 
   case liftFlip:
-    liftMacro(flipVal, 5, liftFlip);
+    // liftMacro(flipVal, 5, liftFlip);
+    lift.moveAbsolute(-120, 200);
+
     break;
 
   case liftGrab:
-    liftMacro(grabVal, 5, liftGrab);
+    // liftMacro(grabVal, 5, liftGrab);
+    lift.moveAbsolute(-120, 100);
+
     break;
   }
 }

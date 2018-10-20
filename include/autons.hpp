@@ -1,16 +1,16 @@
 #ifndef AUTONS_GUARD
 #define AUTONS_GUARD
 
-extern void initLeftCloseAuton();
-extern void executeLeftCloseAuton();
+extern void initRedCloseAuton();
+extern void executeRedCloseAuton();
 
-extern void initLeftFarAuton();
-extern void executeLeftFarAuton();
+extern void initRedFarAuton();
+extern void executeRedFarAuton();
 
-extern void initRightCloseAuton();
-extern void executeRightCloseAuton();
+extern void initBlueCloseAuton();
+extern void executeBlueCloseAuton();
 
-extern void initRightFarAuton();
-extern void executeRightFarAuton();
+extern void initBlueFarAuton();
+extern void executeBlueFarAuton();
 
 #endif

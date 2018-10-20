@@ -18,10 +18,10 @@ void autonomous() {
                    (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
   pros::lcd::print(0, "Autonomous:");
 
-  // executeLeftCloseAuton();
-  // executeLeftFarAuton();
-  executeRightCloseAuton();
-  // executeRightFarAuton();
+  // executeRedCloseAuton();
+  executeRedFarAuton();
+  // executeBlueCloseAuton();
+  // executeBlueFarAuton();
 
   while (true) {
     robotStats();

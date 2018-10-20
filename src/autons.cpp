@@ -1,6 +1,6 @@
 #include "main.h"
 
-void initLeftCloseAuton() {
+void initRedCloseAuton() {
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "Back Hit Flag");
 
@@ -21,7 +21,7 @@ void initLeftCloseAuton() {
   //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Back");
 }
 
-void executeLeftCloseAuton() {
+void executeRedCloseAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
@@ -78,7 +78,7 @@ void executeLeftCloseAuton() {
 //
 //
 
-void initLeftFarAuton() {
+void initRedFarAuton() {
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{2_in, 0_ft, 0_deg}}, "Center");
@@ -88,7 +88,7 @@ void initLeftFarAuton() {
   //
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "Move To Cap");
+      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "Move To Cap");
   // profileController.generatePath(
   //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To
   //     Cap");
@@ -97,7 +97,7 @@ void initLeftFarAuton() {
       {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back From Cap");
 }
 
-void executeLeftFarAuton() {
+void executeRedFarAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
@@ -137,7 +137,7 @@ void executeLeftFarAuton() {
 //
 //
 //
-void initRightCloseAuton() {
+void initBlueCloseAuton() {
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "Back Hit Flag");
 
@@ -158,7 +158,7 @@ void initRightCloseAuton() {
   //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Back");
 }
 
-void executeRightCloseAuton() {
+void executeBlueCloseAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
@@ -203,7 +203,7 @@ void executeRightCloseAuton() {
   intake.moveAbsolute(420, 200);
 }
 
-void initRightFarAuton() {
+void initBlueFarAuton() {
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{2_in, 0_ft, 0_deg}}, "Center");
@@ -213,7 +213,7 @@ void initRightFarAuton() {
   //
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "Move To Cap");
+      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "Move To Cap");
   // profileController.generatePath(
   //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To
   //     Cap");
@@ -222,7 +222,7 @@ void initRightFarAuton() {
       {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back From Cap");
 }
 
-void executeRightFarAuton() {
+void executeBlueFarAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);

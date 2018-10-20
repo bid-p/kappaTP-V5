@@ -19,9 +19,11 @@ void autonomous() {
   pros::lcd::print(0, "Autonomous:");
 
   // executeRedCloseAuton();
-  executeRedFarAuton();
+  // executeRedFarAuton();
   // executeBlueCloseAuton();
   // executeBlueFarAuton();
+  executeRedFarParkAuton();
+  // executeBlueFarParkAuton();
 
   while (true) {
     robotStats();

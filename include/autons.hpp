@@ -13,4 +13,10 @@ extern void executeBlueCloseAuton();
 extern void initBlueFarAuton();
 extern void executeBlueFarAuton();
 
+extern void initRedFarParkAuton();
+extern void executeRedFarParkAuton();
+
+extern void initBlueFarParkAuton();
+extern void executeBlueFarParkAuton();
+
 #endif

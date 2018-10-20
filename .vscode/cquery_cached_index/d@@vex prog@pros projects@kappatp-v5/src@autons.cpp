@@ -102,6 +102,7 @@ void executeRedFarAuton() {
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
   lift.moveAbsolute(-100, 75);
+  intake.moveAbsolute(555, 200);
 
   // profileController.setTarget("Center");
   // profileController.waitUntilSettled();
@@ -115,6 +116,7 @@ void executeRedFarAuton() {
   profileController.reverse();
   profileController.setTarget("Back From Cap");
   lift.moveAbsolute(125, 75);
+  pros::delay(500);
   profileController.waitUntilSettled();
 
   chassisController.turnAngle(-90_deg);
@@ -227,11 +229,12 @@ void executeBlueFarAuton() {
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
   lift.moveAbsolute(-100, 75);
+  intake.moveAbsolute(555, 200);
 
   // profileController.setTarget("Center");
   // profileController.waitUntilSettled();
   //
-  // chassisController.turnAngle(95._deg);
+  // chassisController.turnAngle(-95._deg);
   profileController.setTarget("Move To Cap");
   profileController.waitUntilSettled();
 
@@ -240,12 +243,103 @@ void executeBlueFarAuton() {
   profileController.reverse();
   profileController.setTarget("Back From Cap");
   lift.moveAbsolute(125, 75);
+  pros::delay(500);
   profileController.waitUntilSettled();
 
   chassisController.turnAngle(90_deg);
 
   profileController.reverse();
   profileController.setTarget("Back From Cap");
+  profileController.waitUntilSettled();
+
+  chassisController.moveDistance(50_in);
+
+  intake.moveAbsolute(420, 200);
+}
+
+void initRedFarParkAuton() {
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{34_in, 0_ft, 0_deg}}, "Move");
+  // profileController.generatePath(
+  //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To
+  //     Cap");
+  //
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back");
+}
+
+void executeRedFarParkAuton() {
+
+  lift.moveAbsolute(50, 75);
+  intake.moveAbsolute(420, 200);
+  lift.moveAbsolute(-100, 75);
+  intake.moveAbsolute(555, 200);
+
+  // profileController.setTarget("Center");
+  // profileController.waitUntilSettled();
+  //
+  // chassisController.turnAngle(-95._deg);
+  profileController.setTarget("Move");
+  profileController.waitUntilSettled();
+
+  // intake.moveAbsolute(555, 200);
+
+  // profileController.reverse();
+  // profileController.setTarget("Back From Cap");
+  lift.moveAbsolute(125, 75);
+  pros::delay(500);
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(-90_deg);
+
+  profileController.reverse();
+  profileController.setTarget("Back");
+  profileController.waitUntilSettled();
+
+  chassisController.moveDistance(50_in);
+
+  intake.moveAbsolute(420, 200);
+}
+
+void initBlueFarParkAuton() {
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{34_in, 0_ft, 0_deg}}, "Move");
+  // profileController.generatePath(
+  //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Closer To
+  //     Cap");
+  //
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back");
+}
+
+void executeBlueFarParkAuton() {
+
+  lift.moveAbsolute(50, 75);
+  intake.moveAbsolute(420, 200);
+  lift.moveAbsolute(-100, 75);
+  intake.moveAbsolute(555, 200);
+
+  // profileController.setTarget("Center");
+  // profileController.waitUntilSettled();
+  //
+  // chassisController.turnAngle(-95._deg);
+  profileController.setTarget("Move");
+  profileController.waitUntilSettled();
+
+  // intake.moveAbsolute(555, 200);
+
+  // profileController.reverse();
+  // profileController.setTarget("Back From Cap");
+  lift.moveAbsolute(125, 75);
+  pros::delay(500);
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(90_deg);
+
+  profileController.reverse();
+  profileController.setTarget("Back");
   profileController.waitUntilSettled();
 
   chassisController.moveDistance(50_in);

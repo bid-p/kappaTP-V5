@@ -273,7 +273,7 @@ void executeRedFarParkAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
-  lift.moveAbsolute(-100, 75);
+  lift.moveAbsolute(-60, 75);
   intake.moveAbsolute(555, 200);
 
   // profileController.setTarget("Center");
@@ -318,7 +318,7 @@ void executeBlueFarParkAuton() {
 
   lift.moveAbsolute(50, 75);
   intake.moveAbsolute(420, 200);
-  lift.moveAbsolute(-100, 75);
+  lift.moveAbsolute(-60, 75);
   intake.moveAbsolute(555, 200);
 
   // profileController.setTarget("Center");

@@ -31,8 +31,8 @@ void initialize() {
   // initRedFarAuton();
   // initBlueCloseAuton();
   // initBlueFarAuton();
-  initRedFarParkAuton();
-  // initBlueFarParkAuton();
+  // initRedFarParkAuton();
+  initBlueFarParkAuton();
 
   liftPOT.calibrate();
 }

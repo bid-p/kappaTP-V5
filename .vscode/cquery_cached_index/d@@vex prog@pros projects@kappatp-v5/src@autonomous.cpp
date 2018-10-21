@@ -22,8 +22,8 @@ void autonomous() {
   // executeRedFarAuton();
   // executeBlueCloseAuton();
   // executeBlueFarAuton();
-  executeRedFarParkAuton();
-  // executeBlueFarParkAuton();
+  // executeRedFarParkAuton();
+  executeBlueFarParkAuton();
 
   while (true) {
     robotStats();

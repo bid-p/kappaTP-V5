@@ -1,14 +1,14 @@
 #ifndef PORTS_GUARD
 #define PORTS_GUARD
 
-const int MPORT_DRIVE_L1 = 1;
-const int MPORT_DRIVE_L2 = 2;
-const int MPORT_DRIVE_L3 = 3;
-const int MPORT_DRIVE_R1 = 10;
-const int MPORT_DRIVE_R2 = 9;
-const int MPORT_DRIVE_R3 = 8;
+const int MPORT_DRIVE_L1 = 11;
+const int MPORT_DRIVE_L2 = 12;
+const int MPORT_DRIVE_L3 = 13;
+const int MPORT_DRIVE_R1 = 18;
+const int MPORT_DRIVE_R2 = 19;
+const int MPORT_DRIVE_R3 = 20;
 
-const int MPORT_LIFT = 5;
-const int MPORT_INTAKE = 7;
+const int MPORT_LIFT = 15;
+const int MPORT_INTAKE = 16;
 
 #endif

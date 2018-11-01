@@ -41,11 +41,11 @@ void intakeAct() {
     break;
 
   case intakeClosing:
-    intake.moveVoltage(6700);
+    intake.moveVoltage(12000);
     break;
 
   case intakeOpen:
-    intake.moveAbsolute(420, 200);
+    intake.moveVoltage(-12000);
     break;
   }
 }

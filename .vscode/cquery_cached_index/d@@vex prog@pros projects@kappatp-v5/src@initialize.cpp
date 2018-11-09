@@ -10,7 +10,7 @@ void initialize() {
 
   pros::lcd::initialize();
 
-  // profileController.startThread();
+  profileController.startThread();
 
   // initRedCloseAuton();
   // initRedFarAuton();

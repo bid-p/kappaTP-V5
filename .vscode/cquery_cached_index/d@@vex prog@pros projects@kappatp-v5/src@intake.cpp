@@ -17,7 +17,7 @@ ControllerButton intakeFlipMacroBtn = controller[ControllerDigital::Y];
 pros::Mutex intakeMutex;
 
 void updateIntake() {
-  intakeMutex.take(10);
+  // intakeMutex.take(10);
 
   intakePosition = intake.getPosition();
 
@@ -34,12 +34,12 @@ void updateIntake() {
     intakeState = 'o';
   }
 
-  intakeMutex.give();
+  // intakeMutex.give();
 }
 
 void intakeAct(void *) {
   while (true) {
-    intakeMutex.take(500);
+    // intakeMutex.take(500);
 
     switch (currIntakeState) {
     case intakeNotRunning:
@@ -69,7 +69,7 @@ void intakeAct(void *) {
       currIntakeState = intakeHolding;
       break;
 
-      intakeMutex.give();
+      // intakeMutex.give();
       pros::delay(10);
     }
   }

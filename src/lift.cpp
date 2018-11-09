@@ -23,7 +23,7 @@ ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 pros::Mutex liftMutex;
 
 void updateLift() {
-  liftMutex.take(10);
+  // liftMutex.take(10);
 
   liftPosition = lift.getPosition();
 
@@ -48,12 +48,12 @@ void updateLift() {
     liftState = 'f';
   }
 
-  liftMutex.give();
+  // liftMutex.give();
 }
 
 void liftAct(void *) {
   while (true) {
-    liftMutex.take(4000);
+    // liftMutex.take(4000);
     switch (currLiftState) {
     case liftNotRunning:
       lift.setBrakeMode(AbstractMotor::brakeMode::coast);
@@ -90,7 +90,7 @@ void liftAct(void *) {
       currLiftState = liftHolding;
       break;
 
-      liftMutex.give();
+      // liftMutex.give();
       pros::delay(10);
     }
   }

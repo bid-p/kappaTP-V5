@@ -42,7 +42,7 @@ char driveState = 'D';
 pros::Mutex driveMutex;
 
 void updateDrive() {
-  driveMutex.take(10);
+  // driveMutex.take(10);
 
   if (abs(controller.getAnalog(ControllerAnalog::leftY)) > joyDeadband ||
       abs(controller.getAnalog(ControllerAnalog::rightY)) > joyDeadband) {
@@ -53,12 +53,12 @@ void updateDrive() {
     driveState = 'x';
   }
 
-  driveMutex.give();
+  // driveMutex.give();
 }
 
 void driveAct(void *) {
   while (true) {
-    driveMutex.take(500);
+    // driveMutex.take(500);
 
     switch (currDriveState) {
     case driveNotRunning:
@@ -74,7 +74,7 @@ void driveAct(void *) {
       currDriveState = driveNotRunning;
       break;
 
-      driveMutex.give();
+      // driveMutex.give();
       pros::delay(10);
     }
   }

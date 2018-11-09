@@ -6,7 +6,8 @@
 namespace okapi {
 class CustomAMPController : public AsyncMotionProfileController {
 public:
-  int direction = 1;
+  int leftDirection = 1;
+  int rightDirection = 1;
 
   using AsyncMotionProfileController::AsyncMotionProfileController;
 
@@ -21,10 +22,10 @@ public:
     for (int i = 0; i < path.length && !isDisabled(); ++i) {
       auto leftRPM = linearSpeedToRotationalSpeed(path.left[i].velocity * mps)
                          .convert(rpm) *
-                     direction;
+                     leftDirection;
       auto rightRPM = linearSpeedToRotationalSpeed(path.right[i].velocity * mps)
                           .convert(rpm) *
-                      direction;
+                      rightDirection;
       logger->info(
           std::to_string(
               leftRPM /*/ toUnderlyingType(AbstractMotor::gearset::green)*/) +
@@ -38,7 +39,8 @@ public:
 
       rate->delayUntil(1_ms);
     }
-    direction = 1;
+    rightDirection = 1;
+    leftDirection = 1;
   }
 
   bool isPathComplete() { return (currentPosition >= pathLength); }
@@ -53,9 +55,28 @@ public:
    * Execute the next path with the robot reversing.
    * Return: 1 if running forward, -1 running backward.
    */
-  int reverse() {
-    this->direction = -1;
-    return direction;
+  int linearForward() {
+    this->leftDirection = 1;
+    this->rightDirection = 1;
+    return 1;
+  }
+
+  int linearReverse() {
+    this->leftDirection = -1;
+    this->rightDirection = -1;
+    return -1;
+  }
+
+  int turnRight() {
+    this->leftDirection = -1;
+    this->rightDirection = 1;
+    return 1;
+  }
+
+  int turnLeft() {
+    this->leftDirection = 1;
+    this->rightDirection = -1;
+    return -1;
   }
 
   void stop() { isRunning = false; }

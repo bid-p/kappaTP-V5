@@ -17,14 +17,12 @@ void opcontrol() {
   currDriveState = driveNotRunning;
   currIntakeState = intakeNotRunning;
   currLiftState = liftNotRunning;
-  // autonomous();
-  pros::lcd::print(0, "Driver Control:");
-  while (true) {
-    pros::lcd::print(0, "%d %d %d",
-                     (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-                     (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-                     (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
 
+  initActTasks();
+
+  pros::lcd::print(0, "Driver Control:");
+
+  while (true) {
     updateDrive();
     updateIntake();
     updateLift();
@@ -32,10 +30,6 @@ void opcontrol() {
     checkAbortSubsystems();
 
     robotStats();
-
-    driveAct();
-    intakeAct();
-    liftAct();
 
     pros::delay(10);
   }

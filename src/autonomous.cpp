@@ -12,10 +12,6 @@
  * from where it left off.
  */
 void autonomous() {
-  pros::lcd::print(0, "%d %d %d",
-                   (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-                   (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-                   (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
   pros::lcd::print(0, "Autonomous:");
 
   // executeRedCloseAuton();
@@ -23,7 +19,7 @@ void autonomous() {
   // executeBlueCloseAuton();
   // executeBlueFarAuton();
   // executeRedFarParkAuton();
-  executeBlueFarParkAuton();
+  // executeBlueFarParkAuton();
 
   while (true) {
     robotStats();

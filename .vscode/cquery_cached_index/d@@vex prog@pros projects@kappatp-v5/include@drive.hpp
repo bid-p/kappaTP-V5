@@ -14,25 +14,28 @@ extern Motor driveL1;
 extern Motor driveL2;
 extern Motor driveL3;
 
+extern const QLength chassisWidth;
+
 extern ChassisControllerIntegrated chassisController;
 
 extern CustomAMPController profileController;
 
-extern ControllerButton driveHoldBtn;
+extern void genTurnPath(QAngle angle);
 
 typedef enum driveStates {
   driveNotRunning,
   driveRunning,
-  driveHolding,
 } tDriveStates;
 
 extern tDriveStates currDriveState;
 
 extern char driveState;
 
+extern pros::Mutex driveMutex;
+
 extern void updateDrive();
 
-extern void driveAct();
+extern void driveAct(void *);
 
 extern void chassisMoveDistanceAsyncVel(QLength distance, double maxVel);
 

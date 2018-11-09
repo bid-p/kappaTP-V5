@@ -16,4 +16,6 @@ extern void checkAbortSubsystems();
 
 extern void robotStats();
 
+extern void initActTasks();
+
 #endif

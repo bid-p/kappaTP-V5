@@ -8,8 +8,6 @@ using namespace okapi;
 
 extern Motor lift;
 
-extern pros::ADIPotentiometer liftPOT;
-
 extern AsyncPosIntegratedController liftController;
 
 typedef enum liftStates {
@@ -19,15 +17,14 @@ typedef enum liftStates {
   liftFalling,
   liftLowPole,
   liftHighPole,
-  liftFlip,
-  liftGrab,
+  liftFloor,
 } tLiftStates;
 
 extern double liftPosition;
 
 extern const int lowPoleVal;
 extern const int highPoleVal;
-extern const int flipVal;
+extern const int floorVal;
 extern const int grabVal;
 
 extern char liftState;
@@ -43,10 +40,10 @@ extern ControllerButton liftHighPoleBtn;
 extern ControllerButton liftFlipBtn;
 extern ControllerButton liftGrabBtn;
 
-extern void liftMacro();
+extern pros::Mutex liftMutex;
 
 extern void updateLift();
 
-extern void liftAct();
+extern void liftAct(void *);
 
 #endif

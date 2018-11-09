@@ -2,62 +2,38 @@
 
 Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::red);
 
-pros::ADIPotentiometer liftPOT(1);
-
 AsyncPosIntegratedController liftController =
     AsyncControllerFactory::posIntegrated(MPORT_LIFT);
 
 tLiftStates currLiftState;
-char liftState = 'x';
+char liftState = 'L';
 
 double liftPosition;
 
-const int lowPoleVal = 1800;
-const int highPoleVal = 2000;
-const int flipVal = 580;
-const int grabVal = 2000;
+const int lowPoleVal = 543;
+const int highPoleVal = 1150;
+const int floorVal = -50;
 
-ControllerButton liftUpBtn = controller[ControllerDigital::R1];
-ControllerButton liftDownBtn = controller[ControllerDigital::R2];
+ControllerButton liftRisingBtn = controller[ControllerDigital::R1];
+ControllerButton liftFallingBtn = controller[ControllerDigital::R2];
 ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
 ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
-ControllerButton liftFlipBtn = controller[ControllerDigital::down];
-ControllerButton liftGrabBtn = controller[ControllerDigital::up];
+ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 
-void liftMacro(int targetVal, int threshold, tLiftStates macroState) {
-  if (liftPOT.get_value_calibrated() < targetVal - threshold) {
-    lift.moveVelocity(100);
-    currLiftState = macroState;
-  }
-  if (liftPOT.get_value_calibrated() > targetVal + threshold) {
-    lift.moveVelocity(-100);
-    currLiftState = macroState;
-  }
-  if (liftPOT.get_value_calibrated() > targetVal - threshold &&
-      liftPOT.get_value_calibrated() < targetVal + threshold) {
-    currLiftState = liftHolding;
-  }
-}
+pros::Mutex liftMutex;
 
 void updateLift() {
-  // lift.setBrakeMode(AbstractMotor::brakeMode::hold);
-  if (liftUpBtn.isPressed()) {
+  liftMutex.take(10);
+
+  liftPosition = lift.getPosition();
+
+  if (liftRisingBtn.isPressed()) {
     currLiftState = liftRising;
     liftState = 'r';
   }
-  if (liftDownBtn.isPressed()) {
+  if (liftFallingBtn.isPressed()) {
     currLiftState = liftFalling;
     liftState = 'f';
-  }
-  if (liftUpBtn.changedToReleased()) {
-    liftPosition = lift.getPosition();
-    currLiftState = liftHolding;
-    liftState = 'h';
-  }
-  if (liftDownBtn.changedToReleased()) {
-    liftPosition = lift.getPosition();
-    currLiftState = liftHolding;
-    liftState = 'h';
   }
   if (liftHighPoleBtn.changedToPressed()) {
     currLiftState = liftHighPole;
@@ -67,54 +43,55 @@ void updateLift() {
     currLiftState = liftLowPole;
     liftState = 'l';
   }
-  if (liftFlipBtn.changedToPressed()) {
-    currLiftState = liftFlip;
+  if (liftFloorBtn.changedToPressed()) {
+    currLiftState = liftFloor;
     liftState = 'f';
   }
-  if (liftGrabBtn.changedToPressed()) {
-    currLiftState = liftGrab;
-    liftState = 'g';
-  }
+
+  liftMutex.give();
 }
 
-void liftAct() {
-  switch (currLiftState) {
-  case liftNotRunning:
-    lift.setBrakeMode(AbstractMotor::brakeMode::coast);
-    lift.moveVoltage(0);
-    break;
+void liftAct(void *) {
+  while (true) {
+    liftMutex.take(4000);
+    switch (currLiftState) {
+    case liftNotRunning:
+      lift.setBrakeMode(AbstractMotor::brakeMode::coast);
+      lift.moveVoltage(0);
+      break;
 
-  case liftHolding:
-    lift.moveAbsolute(liftPosition, 100);
-    break;
+    case liftHolding:
+      lift.moveAbsolute(liftPosition, 100);
+      currLiftState = liftHolding;
+      break;
 
-  case liftRising:
-    lift.moveVoltage(12000);
-    break;
+    case liftRising:
+      lift.moveVoltage(12000);
+      currLiftState = liftHolding;
+      break;
 
-  case liftFalling:
-    lift.moveVoltage(-12000);
-    break;
+    case liftFalling:
+      lift.moveVoltage(-12000);
+      currLiftState = liftHolding;
+      break;
 
-  case liftLowPole:
-    // liftMacro(lowPoleVal, 5, liftLowPole);
-    lift.moveAbsolute(/*680*/ 543, 200);
-    break;
+    case liftLowPole:
+      lift.moveAbsolute(lowPoleVal, 100);
+      currLiftState = liftHolding;
+      break;
 
-  case liftHighPole:
-    lift.moveAbsolute(1150, 200);
-    break;
+    case liftHighPole:
+      lift.moveAbsolute(highPoleVal, 100);
+      currLiftState = liftHolding;
+      break;
 
-  case liftFlip:
-    // liftMacro(flipVal, 5, liftFlip);
-    lift.moveAbsolute(-120, 200);
+    case liftFloor:
+      lift.moveAbsolute(floorVal, 100);
+      currLiftState = liftHolding;
+      break;
 
-    break;
-
-  case liftGrab:
-    // liftMacro(grabVal, 5, liftGrab);
-    lift.moveAbsolute(-120, 100);
-
-    break;
+      liftMutex.give();
+      pros::delay(10);
+    }
   }
 }

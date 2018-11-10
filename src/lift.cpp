@@ -91,7 +91,7 @@ void liftAct(void *) {
       break;
 
       // liftMutex.give();
-      pros::delay(10);
     }
+    pros::delay(10);
   }
 }

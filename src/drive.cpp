@@ -75,7 +75,7 @@ void driveAct(void *) {
       break;
 
       // driveMutex.give();
-      pros::delay(10);
     }
+    pros::delay(10);
   }
 }

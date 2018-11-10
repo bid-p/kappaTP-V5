@@ -10,8 +10,8 @@ char intakeState = 'I';
 
 double intakePosition;
 
-ControllerButton intakeCloseBtn = ControllerDigital::L2;
-ControllerButton intakeOpenBtn = controller[ControllerDigital::L1];
+ControllerButton intakeUpBtn = ControllerDigital::L2;
+ControllerButton intakeDownBtn = controller[ControllerDigital::L1];
 ControllerButton intakeFlipMacroBtn = controller[ControllerDigital::Y];
 
 pros::Mutex intakeMutex;
@@ -21,17 +21,17 @@ void updateIntake() {
 
   intakePosition = intake.getPosition();
 
-  if (intakeCloseBtn.isPressed()) {
-    currIntakeState = intakeClosing;
-    intakeState = 'c';
+  if (intakeUpBtn.isPressed()) {
+    currIntakeState = intakeUp;
+    intakeState = 'u';
   }
-  if (intakeOpenBtn.isPressed()) {
-    currIntakeState = intakeOpen;
-    intakeState = 'o';
+  if (intakeDownBtn.isPressed()) {
+    currIntakeState = intakeDown;
+    intakeState = 'd';
   }
   if (intakeFlipMacroBtn.isPressed()) {
-    currIntakeState = intakeFlipMacro;
-    intakeState = 'o';
+    currIntakeState = intakeFlipUp;
+    intakeState = 'f';
   }
 
   // intakeMutex.give();
@@ -49,28 +49,34 @@ void intakeAct(void *) {
 
     case intakeHolding:
       intake.moveAbsolute(intakePosition, 100);
-      currIntakeState = intakeHolding;
       break;
 
-    case intakeClosing:
+    case intakeUp:
       intake.moveVoltage(12000);
       currIntakeState = intakeHolding;
       break;
 
-    case intakeOpen:
-      intake.moveVoltage(-12000);
+    case intakeDown:
+      intake.moveVoltage(-5000);
       currIntakeState = intakeHolding;
       break;
 
-    case intakeFlipMacro:
-      intake.moveAbsolute(50, 100);
-      pros::delay(0);
-      intake.moveAbsolute(0, 50);
-      currIntakeState = intakeHolding;
+    case intakeFlipUp:
+      if (abs(intakePosition - 50) > 5) { // 5 is a temporary error tolerance
+        intake.moveAbsolute(50, 200);
+      } else {
+        currIntakeState = intakeFlipDown;
+      }
       break;
-
+    case intakeFlipDown:
+      if (abs(intakePosition) > 5) {
+        intake.moveAbsolute(0, 100);
+      } else {
+        currIntakeState = intakeHolding;
+        intakeState = 'f';
+      }
       // intakeMutex.give();
-      pros::delay(10);
     }
+    pros::delay(10);
   }
 }

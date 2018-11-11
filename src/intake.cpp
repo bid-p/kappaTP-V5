@@ -7,7 +7,9 @@ AsyncPosIntegratedController intakeController =
 
 tIntakeStates currIntakeState;
 char intakeState = 'I';
-
+int upErr = 5;
+int downErr = 5;
+int flipUpPos = 200;
 double intakePosition;
 
 ControllerButton intakeUpBtn = ControllerDigital::L2;
@@ -16,24 +18,37 @@ ControllerButton intakeFlipMacroBtn = controller[ControllerDigital::Y];
 
 pros::Mutex intakeMutex;
 
+int counter = 0;
+
 void updateIntake() {
   // intakeMutex.take(10);
 
   intakePosition = intake.getPosition();
-
-  if (intakeUpBtn.isPressed()) {
-    currIntakeState = intakeUp;
-    intakeState = 'u';
+  if(currIntakeState != intakeFlipUp && currIntakeState != intakeFlipDown) {
+    currIntakeState = intakeHolding;
+    intakeState = 'h';
+    if (intakeUpBtn.isPressed()) {
+      currIntakeState = intakeUp;
+      intakeState = 'u';
+    }
+    if (intakeDownBtn.isPressed()) {
+      currIntakeState = intakeDown;
+      intakeState = 'd';
+    }
+    if (intakeFlipMacroBtn.isPressed()) {
+      currIntakeState = intakeFlipUp;
+      intakeState = 'f';
+    }
+  } else {
+    if(abs(intakePosition - flipUpPos) < upErr && currIntakeState == intakeFlipUp) {
+      currIntakeState = intakeFlipDown;
+      intakeState = 'l';
+    }
+    if(abs(intakePosition) < downErr && currIntakeState == intakeFlipDown) {
+      currIntakeState = intakeHolding;
+      intakeState = 'h';
+    }
   }
-  if (intakeDownBtn.isPressed()) {
-    currIntakeState = intakeDown;
-    intakeState = 'd';
-  }
-  if (intakeFlipMacroBtn.isPressed()) {
-    currIntakeState = intakeFlipUp;
-    intakeState = 'f';
-  }
-
   // intakeMutex.give();
 }
 
@@ -46,35 +61,24 @@ void intakeAct(void *) {
       intake.setBrakeMode(AbstractMotor::brakeMode::coast);
       intake.moveVoltage(0);
       break;
-
     case intakeHolding:
       intake.moveAbsolute(intakePosition, 100);
       break;
 
     case intakeUp:
       intake.moveVoltage(12000);
-      currIntakeState = intakeHolding;
       break;
 
     case intakeDown:
       intake.moveVoltage(-5000);
-      currIntakeState = intakeHolding;
       break;
 
     case intakeFlipUp:
-      if (abs(intakePosition - 50) > 5) { // 5 is a temporary error tolerance
-        intake.moveAbsolute(50, 200);
-      } else {
-        currIntakeState = intakeFlipDown;
-      }
+      intake.moveAbsolute(flipUpPos, 200);
       break;
     case intakeFlipDown:
-      if (abs(intakePosition) > 5) {
-        intake.moveAbsolute(0, 100);
-      } else {
-        currIntakeState = intakeHolding;
-        intakeState = 'f';
-      }
+      intake.moveAbsolute(0, 35);
+      break;
       // intakeMutex.give();
     }
     pros::delay(10);

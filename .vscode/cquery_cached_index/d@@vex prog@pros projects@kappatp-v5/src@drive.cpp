@@ -25,17 +25,6 @@ CustomAMPController profileController(TimeUtilFactory::create(), 1.09, 4.0,
                                       chassisController.getChassisScales(),
                                       AbstractMotor::gearset::green);
 
-void genTurnPath(QAngle angle) {
-  std::stringstream stream;
-  stream << std::fixed << std::setprecision(2) << angle.convert(degree);
-  std::string genPathName = stream.str();
-  double sector =
-      angle.convert(degree) * (pi / 180) * (chassisWidth.convert(inch) / 2);
-  profileController.generatePath(
-      {Point{0_in, 0_in, 0_deg}, Point{0_in, (sector * inch), 0_deg}},
-      "Turn " + genPathName);
-}
-
 tDriveStates currDriveState;
 char driveState = 'D';
 
@@ -75,7 +64,7 @@ void driveAct(void *) {
       break;
 
       // driveMutex.give();
-      pros::delay(10);
     }
+    pros::delay(10);
   }
 }

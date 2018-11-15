@@ -20,8 +20,6 @@ extern ChassisControllerIntegrated chassisController;
 
 extern CustomAMPController profileController;
 
-extern void genTurnPath(QAngle angle);
-
 typedef enum driveStates {
   driveNotRunning,
   driveRunning,

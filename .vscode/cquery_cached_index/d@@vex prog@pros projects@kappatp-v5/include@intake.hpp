@@ -13,9 +13,10 @@ extern AsyncPosIntegratedController intakeController;
 typedef enum intakeStates {
   intakeNotRunning,
   intakeHolding,
-  intakeClosing,
-  intakeOpen,
-  intakeFlipMacro,
+  intakeDown,
+  intakeUp,
+  intakeFlipUp,
+  intakeFlipDown,
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;

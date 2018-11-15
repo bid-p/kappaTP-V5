@@ -20,7 +20,7 @@ void initRedCloseAuton() {
   // profileController.generatePath(
   //     {Point{0_ft, 0_ft, 0_deg}, Point{10_in, 0_ft, 0_deg}}, "Back");
 
-  genTurnPath(90_deg);
+  profileController.turnPath(90_deg, "Turn 90");
 }
 
 void executeRedCloseAuton() {
@@ -29,17 +29,15 @@ void executeRedCloseAuton() {
   intake.moveAbsolute(420, 200);
   lift.moveAbsolute(-100, 75);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back Hit Flag");
   profileController.waitUntilSettled();
 
-  profileController.linearForward();
+  profileController.forward();
   profileController.setTarget("Return From Flag Hit");
   profileController.waitUntilSettled();
 
-  profileController.turnLeft();
-  profileController.setTarget("Turn 90.0");
-  profileController.waitUntilSettled();
+  profileController.turnAngle("Turn 90", -1); // left turn 90
 
   profileController.setTarget("Move To Cap");
   profileController.waitUntilSettled();
@@ -49,15 +47,13 @@ void executeRedCloseAuton() {
 
   // intake.moveAbsolute(555, 200);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   profileController.waitUntilSettled();
 
-  profileController.turnRight();
-  profileController.setTarget("Turn 90.0");
-  profileController.waitUntilSettled();
+  profileController.turnAngle("Turn 90", 1); // right turn 90
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   lift.moveAbsolute(125, 75);
   profileController.waitUntilSettled();
@@ -70,8 +66,6 @@ void executeRedCloseAuton() {
 
   // profileController.setTarget("P");
   // profileController.waitUntilSettled();
-
-  intake.moveAbsolute(420, 200);
 }
 
 //
@@ -95,9 +89,9 @@ void initRedFarAuton() {
   //     {Point{0_ft, 0_ft, 0_deg}, Point{24_in, -40_in, -80_deg}},
   //     "Curve To Cap");
 
-  genTurnPath(90_deg);
-  genTurnPath(63_deg);
-  genTurnPath(153_deg);
+  profileController.turnPath(90_deg, "Turn 90");
+  profileController.turnPath(63_deg, "Turn 63");
+  profileController.turnPath(153_deg, "Turn 153");
 }
 
 void executeRedFarAuton() {
@@ -105,27 +99,23 @@ void executeRedFarAuton() {
                                 // intake can prod the cap over
   intake.moveAbsolute(50, 100); // lets say 50 is the flat floor value
 
-  profileController.turnLeft();
-  profileController.setTarget("Turn 90.0");
-  profileController.waitUntilSettled();
+  profileController.turnAngle("Turn 90", -1); // left turn 90 degs
 
-  profileController.linearForward();
+  profileController.forward();
   profileController.setTarget("A");
   profileController.waitUntilSettled();
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("B");
   profileController.waitUntilSettled();
 
-  profileController.turnRight();
-  profileController.setTarget("Turn 63.0");
-  profileController.waitUntilSettled();
+  profileController.turnAngle("Turn 63", 1); // right turn 63 degs
   // chassisController.turnAngle(63_deg);
 
   lift.moveAbsolute(-100, 100); // Assumes 100 is the lift value
                                 // where the intake touches ground
 
-  profileController.linearForward();
+  profileController.forward();
   profileController.setTarget("C");
   profileController.waitUntilSettled();
 
@@ -133,16 +123,14 @@ void executeRedFarAuton() {
   pros::delay(200);
   intake.moveAbsolute(50, 50); // Return to flat value
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("D");
   profileController.waitUntilSettled();
 
-  profileController.turnLeft();
-  profileController.setTarget("Turn 153.0");
-  lift.moveAbsolute(100, 100); // Brings lift up to clear park platform
-                               // as robot turns
-  profileController.waitUntilSettled();
+  profileController.turnAngle("Turn 153", -1); // left turn 153 degs
   // chassisController.turnAngle(-153_deg);
+
+  lift.moveAbsolute(100, 100); // Brings lift up to clear park platform
 
   chassisController.moveDistance(40_in); // park
 }
@@ -177,7 +165,7 @@ void executeBlueCloseAuton() {
   intake.moveAbsolute(420, 200);
   lift.moveAbsolute(-100, 75);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back Hit Flag");
   profileController.waitUntilSettled();
 
@@ -193,13 +181,13 @@ void executeBlueCloseAuton() {
 
   // intake.moveAbsolute(555, 200);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   profileController.waitUntilSettled();
 
   chassisController.turnAngle(-90_deg);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   lift.moveAbsolute(125, 75);
   profileController.waitUntilSettled();
@@ -254,7 +242,7 @@ void executeBlueFarAuton() {
 
   // intake.moveAbsolute(555, 200);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   lift.moveAbsolute(125, 75);
   pros::delay(500);
@@ -262,7 +250,7 @@ void executeBlueFarAuton() {
 
   chassisController.turnAngle(90_deg);
 
-  profileController.linearReverse();
+  profileController.reverse();
   profileController.setTarget("Back From Cap");
   profileController.waitUntilSettled();
 
@@ -282,7 +270,7 @@ void initRedFarParkAuton() {
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back");
 
-  // genTurnPath(90_deg);
+  profileController.turnPath(90_deg, "Turn 90");
 }
 
 void executeRedFarParkAuton() {
@@ -290,18 +278,16 @@ void executeRedFarParkAuton() {
   intake.moveAbsolute(-200, 100);
   lift.moveAbsolute(50, 75);
 
+  profileController.forward();
   profileController.setTarget("A");
   profileController.waitUntilSettled();
 
   pros::delay(500);
   profileController.waitUntilSettled();
 
-  // profileController.turnLeft();
-  // profileController.setTarget("Turn 90.0");
-  // profileController.waitUntilSettled();
-  chassisController.turnAngle(-90_deg);
+  profileController.turnAngle("Turn 90", -1);
 
-  // profileController.linearReverse();
+  // profileController.reverse();
   // profileController.setTarget("Back");
   // profileController.waitUntilSettled();
 
@@ -319,7 +305,7 @@ void initBlueFarParkAuton() {
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back");
 
-  // genTurnPath(90_deg);
+  profileController.turnPath(90_deg, "Turn 90");
 }
 
 void executeBlueFarParkAuton() {
@@ -327,20 +313,18 @@ void executeBlueFarParkAuton() {
   intake.moveAbsolute(-200, 100);
   lift.moveAbsolute(50, 75);
 
+  profileController.forward();
   profileController.setTarget("A");
   profileController.waitUntilSettled();
 
   pros::delay(500);
   profileController.waitUntilSettled();
 
-  // profileController.turnRight();
-  // profileController.setTarget("Turn 90.0");
-  // profileController.waitUntilSettled();
-  chassisController.turnAngle(90_deg);
+  profileController.turnAngle("Turn 90", 1);
 
-  profileController.linearReverse();
-  profileController.setTarget("Back");
-  profileController.waitUntilSettled();
+  // profileController.reverse();
+  // profileController.setTarget("Back");
+  // profileController.waitUntilSettled();
 
   chassisController.moveDistance(35_in);
 }

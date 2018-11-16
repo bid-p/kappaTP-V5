@@ -25,7 +25,7 @@ void executeRedCloseAuton() {
   profileController.setTarget("B");
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(-90_deg);
+  chassisController.turnAngle(-90_deg);
 
   lift.moveAbsolute(-20, 100);
 
@@ -35,7 +35,7 @@ void executeRedCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(90_deg);
+  chassisController.turnAngle(90_deg);
 
   chassisController.moveDistance(-33_in);
 }
@@ -68,7 +68,7 @@ void executeBlueCloseAuton() {
   profileController.setTarget("B");
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(90_deg);
+  chassisController.turnAngle(90_deg);
 
   lift.moveAbsolute(-20, 100);
 
@@ -78,7 +78,7 @@ void executeBlueCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(-90_deg);
+  chassisController.turnAngle(-90_deg);
 
   chassisController.moveDistance(-33_in);
 }

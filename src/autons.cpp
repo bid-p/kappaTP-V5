@@ -305,7 +305,7 @@ void initBlueFarParkAuton() {
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{6_in, 0_ft, 0_deg}}, "Back");
 
-  profileController.turnPath(90_deg, "Turn 90");
+  //profileController.turnPath(90_deg, "Turn 90");
 }
 
 void executeBlueFarParkAuton() {
@@ -313,18 +313,14 @@ void executeBlueFarParkAuton() {
   intake.moveAbsolute(-200, 100);
   lift.moveAbsolute(50, 75);
 
-  profileController.forward();
   profileController.setTarget("A");
   profileController.waitUntilSettled();
 
-  pros::delay(500);
+  // profileController.turnAngle("Turn 90", 1);
+  chassisController.turnAngle(90_deg);
+
+  profileController.setTarget("Back", true);
   profileController.waitUntilSettled();
-
-  profileController.turnAngle("Turn 90", 1);
-
-  // profileController.reverse();
-  // profileController.setTarget("Back");
-  // profileController.waitUntilSettled();
 
   chassisController.moveDistance(35_in);
 }

@@ -24,9 +24,9 @@ void updateIntake() {
   // intakeMutex.take(10);
 
   intakePosition = intake.getPosition();
-  if(currIntakeState != intakeFlipUp && currIntakeState != intakeFlipDown) {
-    currIntakeState = intakeHolding;
-    intakeState = 'h';
+  // if(currIntakeState != intakeFlipUp && currIntakeState != intakeFlipDown) {
+  //   currIntakeState = intakeNotRunning;
+  //   intakeState = 'h';
     if (intakeUpBtn.isPressed()) {
       currIntakeState = intakeUp;
       intakeState = 'u';
@@ -39,16 +39,16 @@ void updateIntake() {
       currIntakeState = intakeFlipUp;
       intakeState = 'f';
     }
-  } else {
-    if(abs(intakePosition - flipUpPos) < upErr && currIntakeState == intakeFlipUp) {
-      currIntakeState = intakeFlipDown;
-      intakeState = 'l';
-    }
-    if(abs(intakePosition) < downErr && currIntakeState == intakeFlipDown) {
-      currIntakeState = intakeHolding;
-      intakeState = 'h';
-    }
-  }
+  // } else {
+  //   if(abs(intakePosition - flipUpPos) < upErr && currIntakeState == intakeFlipUp) {
+  //     currIntakeState = intakeFlipDown;
+  //     intakeState = 'l';
+  //   }
+  //   if(abs(intakePosition) < downErr && currIntakeState == intakeFlipDown) {
+  //     currIntakeState = intakeHolding;
+  //     intakeState = 'h';
+  //   }
+  // }
   // intakeMutex.give();
 }
 
@@ -61,24 +61,27 @@ void intakeAct(void *) {
       intake.setBrakeMode(AbstractMotor::brakeMode::coast);
       intake.moveVoltage(0);
       break;
+
     case intakeHolding:
-      intake.moveAbsolute(intakePosition, 100);
+      intake.moveRelative(0, 100);
       break;
 
     case intakeUp:
       intake.moveVoltage(12000);
+      currIntakeState = intakeHolding;
       break;
 
     case intakeDown:
       intake.moveVoltage(-5000);
+      currIntakeState = intakeHolding;
       break;
 
-    case intakeFlipUp:
-      intake.moveAbsolute(flipUpPos, 200);
-      break;
-    case intakeFlipDown:
-      intake.moveAbsolute(0, 35);
-      break;
+    // case intakeFlipUp:
+    //   intake.moveAbsolute(flipUpPos, 200);
+    //   break;
+    // case intakeFlipDown:
+    //   intake.moveAbsolute(0, 35);
+    //   break;
       // intakeMutex.give();
     }
     pros::delay(10);

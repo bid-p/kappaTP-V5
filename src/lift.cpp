@@ -12,7 +12,7 @@ double liftPosition;
 
 const int lowPoleVal = 543;
 const int highPoleVal = 1150;
-const int floorVal = -50;
+const int floorVal = -20;
 
 ControllerButton liftRisingBtn = controller[ControllerDigital::R1];
 ControllerButton liftFallingBtn = controller[ControllerDigital::R2];
@@ -20,12 +20,7 @@ ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
 ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
 ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 
-pros::Mutex liftMutex;
-
 void updateLift() {
-  // liftMutex.take(10);
-
-  liftPosition = lift.getPosition();
 
   if (liftRisingBtn.isPressed()) {
     currLiftState = liftRising;
@@ -47,13 +42,10 @@ void updateLift() {
     currLiftState = liftFloor;
     liftState = 'f';
   }
-
-  // liftMutex.give();
 }
 
 void liftAct(void *) {
   while (true) {
-    // liftMutex.take(4000);
     switch (currLiftState) {
     case liftNotRunning:
       lift.setBrakeMode(AbstractMotor::brakeMode::coast);
@@ -68,29 +60,32 @@ void liftAct(void *) {
     case liftRising:
       lift.moveVoltage(12000);
       currLiftState = liftHolding;
+      liftPosition = lift.getPosition();
       break;
 
     case liftFalling:
       lift.moveVoltage(-12000);
       currLiftState = liftHolding;
+      liftPosition = lift.getPosition();
       break;
 
     case liftLowPole:
       lift.moveAbsolute(lowPoleVal, 100);
       currLiftState = liftHolding;
+      liftPosition = lift.getPosition();
       break;
 
     case liftHighPole:
       lift.moveAbsolute(highPoleVal, 100);
       currLiftState = liftHolding;
+      liftPosition = lift.getPosition();
       break;
 
     case liftFloor:
       lift.moveAbsolute(floorVal, 100);
       currLiftState = liftHolding;
+      liftPosition = lift.getPosition();
       break;
-
-      // liftMutex.give();
     }
     pros::delay(10);
   }

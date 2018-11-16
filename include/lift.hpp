@@ -40,8 +40,6 @@ extern ControllerButton liftHighPoleBtn;
 extern ControllerButton liftFlipBtn;
 extern ControllerButton liftGrabBtn;
 
-extern pros::Mutex liftMutex;
-
 extern void updateLift();
 
 extern void liftAct(void *);

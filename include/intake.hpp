@@ -15,8 +15,7 @@ typedef enum intakeStates {
   intakeHolding,
   intakeDown,
   intakeUp,
-  intakeFlipUp,
-  intakeFlipDown,
+  intakeCapHug,
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;

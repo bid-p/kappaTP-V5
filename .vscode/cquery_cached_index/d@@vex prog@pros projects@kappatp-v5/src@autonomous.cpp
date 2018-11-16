@@ -15,8 +15,8 @@ void autonomous() {
   pros::lcd::print(0, "Autonomous:");
 
   // executeRedCloseAuton();
-  // executeRedFarAuton();
   // executeBlueCloseAuton();
+  executeRedFarAuton();
   // executeBlueFarAuton();
   // executeRedFarParkAuton();
   // executeBlueFarParkAuton();

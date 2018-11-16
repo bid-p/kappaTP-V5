@@ -7,14 +7,14 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
+  Logger::initialize(TimeUtilFactory::create().getTimer(), "/ser/sout",
+                     Logger::LogLevel::debug);
 
   pros::lcd::initialize();
 
-  profileController.startThread();
-
   // initRedCloseAuton();
-  // initRedFarAuton();
   // initBlueCloseAuton();
+  initRedFarAuton();
   // initBlueFarAuton();
   // initRedFarParkAuton();
   // initBlueFarParkAuton();

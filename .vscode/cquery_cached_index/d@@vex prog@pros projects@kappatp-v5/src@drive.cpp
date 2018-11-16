@@ -1,6 +1,4 @@
 #include "main.h"
-#include <iomanip> // setprecision
-#include <sstream> // stringstream
 
 Motor driveL1(MPORT_DRIVE_L1, false, AbstractMotor::gearset::green);
 Motor driveL2(MPORT_DRIVE_L2, false, AbstractMotor::gearset::green);
@@ -16,14 +14,13 @@ ChassisControllerIntegrated chassisController =
         {MPORT_DRIVE_L1, MPORT_DRIVE_L2, MPORT_DRIVE_L3},    // Left motors
         {-MPORT_DRIVE_R1, -MPORT_DRIVE_R2, -MPORT_DRIVE_R3}, // Right motors
         AbstractMotor::gearset::green,                       // Speed gearset
-        {4_in, chassisWidth} // 4 inch wheels, 9.867 inch wheelbase width
+        {4.125_in, chassisWidth} // 4 inch wheels, 9.867 inch wheelbase width
     );
 
-CustomAMPController profileController(TimeUtilFactory::create(), 1.09, 4.0,
-                                      10.0, // maxvel, accel, max jerk
-                                      chassisController.getChassisModel(),
-                                      chassisController.getChassisScales(),
-                                      AbstractMotor::gearset::green);
+AsyncMotionProfileController profileController =
+    AsyncControllerFactory::motionProfile(1.09, 4.0,
+                                          10.0, // maxvel, accel, max jerk
+                                          chassisController);
 
 tDriveStates currDriveState;
 char driveState = 'D';

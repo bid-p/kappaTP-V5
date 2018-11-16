@@ -2,7 +2,6 @@
 #define DRIVE_GUARD
 
 #include "api.h"
-#include "customAMPController.hpp"
 #include "okapi/api.hpp"
 
 using namespace okapi;
@@ -18,7 +17,7 @@ extern const QLength chassisWidth;
 
 extern ChassisControllerIntegrated chassisController;
 
-extern CustomAMPController profileController;
+extern AsyncMotionProfileController profileController;
 
 typedef enum driveStates {
   driveNotRunning,

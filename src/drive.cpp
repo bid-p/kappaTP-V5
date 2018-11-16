@@ -1,6 +1,4 @@
 #include "main.h"
-#include <iomanip> // setprecision
-#include <sstream> // stringstream
 
 Motor driveL1(MPORT_DRIVE_L1, false, AbstractMotor::gearset::green);
 Motor driveL2(MPORT_DRIVE_L2, false, AbstractMotor::gearset::green);

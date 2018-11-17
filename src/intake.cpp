@@ -41,25 +41,23 @@ void intakeAct(void *) {
 
     case intakeHolding:
       intake.moveAbsolute(intakePosition, 100);
-      currLiftState = liftHolding;
+      currIntakeState = intakeNotRunning;
       break;
 
     case intakeUp:
       intake.moveVoltage(12000);
-      currIntakeState = intakeHolding;
-      intakePosition = intake.getPosition();
+      currIntakeState = intakeNotRunning;
+      // intakePosition = intake.getPosition();
       break;
 
     case intakeDown:
       intake.moveVoltage(-5000);
-      currIntakeState = intakeHolding;
-      intakePosition = intake.getPosition();
+      currIntakeState = intakeNotRunning;
+      // intakePosition = intake.getPosition();
       break;
 
     case intakeCapHug:
-      intake.moveAbsolute(-240, 100);
-      currIntakeState = intakeHolding;
-      intakePosition = intake.getPosition();
+      intake.moveAbsolute(-188, 100);
       break;
     }
 

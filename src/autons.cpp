@@ -35,7 +35,7 @@ void executeRedCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(90_deg);
+  chassisController.turnAngle(-90_deg);
 
   chassisController.moveDistance(-33_in);
 }
@@ -45,17 +45,17 @@ void executeRedCloseAuton() {
 
 void initBlueCloseAuton() {
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "A");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{43_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{44_in, 0_ft, 0_deg}}, "B");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "C");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "C");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{5_in, 0_ft, 0_deg}}, "D");
-}
+} // hella good
 
 void executeBlueCloseAuton() {
   intake.moveAbsolute(-270, 100);
@@ -78,10 +78,13 @@ void executeBlueCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(-90_deg);
+  intake.moveAbsolute(-80, 100);
+  pros::delay(600);
 
-  chassisController.moveDistance(-33_in);
-}
+  chassisController.turnAngle(90_deg);
+
+  chassisController.moveDistance(-36_in);
+} // hella good
 
 //
 //
@@ -165,10 +168,10 @@ void initRedFar2Auton() {
       {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-7_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{9_in, 0_ft, 0_deg}}, "B");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{18_in, 0_ft, 0_deg}}, "C");
+      {Point{0_ft, 0_ft, 0_deg}, Point{23_in, 0_ft, 0_deg}}, "C");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{-13_in, 0_ft, 0_deg}}, "D");
@@ -186,22 +189,22 @@ void executeRedFar2Auton() {
   profileController.setTarget("B", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(61_deg);
+  chassisController.turnAngle(65_deg);
 
   profileController.setTarget("C");
   profileController.waitUntilSettled();
 
-  intake.moveAbsolute(-80, 100); // Lets say 30 is the intake upflip value
-  pros::delay(200);
-  intake.moveAbsolute(-270, 50); // Return to flat value
+  intake.moveAbsolute(-60, 100); // Lets say 30 is the intake upflip value
+  pros::delay(600);
+  intake.moveAbsolute(-270, 100); // Return to flat value
 
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(29_deg);
+  chassisController.turnAngle(45_deg);
   intake.moveAbsolute(-225, 100);
 
-  chassisController.moveDistance(-40_in); // park
+  chassisController.moveDistance(-43_in); // park
 }
 
 //
@@ -212,16 +215,17 @@ void initBlueFar2Auton() {
       {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-7_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{9_in, 0_ft, 0_deg}}, "B");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{18_in, 0_ft, 0_deg}}, "C");
+      {Point{0_ft, 0_ft, 0_deg}, Point{23_in, 0_ft, 0_deg}}, "C");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{-13_in, 0_ft, 0_deg}}, "D");
 }
 
 void executeBlueFar2Auton() {
+
   intake.moveAbsolute(-270, 100); // Assumes 100 is the value where the extended
   pros::delay(500);
   lift.moveAbsolute(-20, 100); // lets say 50 is the flat floor value
@@ -232,22 +236,22 @@ void executeBlueFar2Auton() {
   profileController.setTarget("B", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(-61_deg);
+  chassisController.turnAngle(-65_deg);
 
   profileController.setTarget("C");
   profileController.waitUntilSettled();
 
-  intake.moveAbsolute(-80, 100); // Lets say 30 is the intake upflip value
-  pros::delay(200);
-  intake.moveAbsolute(-270, 50); // Return to flat value
+  intake.moveAbsolute(-60, 100); // Lets say 30 is the intake upflip value
+  pros::delay(600);
+  intake.moveAbsolute(-270, 100); // Return to flat value
 
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(-29_deg);
+  chassisController.turnAngle(-45_deg);
   intake.moveAbsolute(-225, 100);
 
-  chassisController.moveDistance(-40_in); // park
+  chassisController.moveDistance(-43_in); // park
 }
 
 //

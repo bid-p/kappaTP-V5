@@ -20,7 +20,10 @@ ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
 ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
 ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 
+pros::Mutex liftMutex;
+
 void updateLift() {
+  liftPosition = lift.getPosition();
 
   if (liftRisingBtn.isPressed()) {
     currLiftState = liftRising;
@@ -60,31 +63,26 @@ void liftAct(void *) {
     case liftRising:
       lift.moveVoltage(12000);
       currLiftState = liftHolding;
-      liftPosition = lift.getPosition();
       break;
 
     case liftFalling:
       lift.moveVoltage(-12000);
       currLiftState = liftHolding;
-      liftPosition = lift.getPosition();
       break;
 
     case liftLowPole:
       lift.moveAbsolute(lowPoleVal, 100);
       currLiftState = liftHolding;
-      liftPosition = lift.getPosition();
       break;
 
     case liftHighPole:
       lift.moveAbsolute(highPoleVal, 100);
       currLiftState = liftHolding;
-      liftPosition = lift.getPosition();
       break;
 
     case liftFloor:
       lift.moveAbsolute(floorVal, 100);
       currLiftState = liftHolding;
-      liftPosition = lift.getPosition();
       break;
     }
     pros::delay(10);

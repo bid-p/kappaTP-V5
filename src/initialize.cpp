@@ -13,9 +13,11 @@ void initialize() {
   pros::lcd::initialize();
 
   // initRedCloseAuton();
-  // initBlueCloseAuton();
-  initRedFarAuton();
+  initBlueCloseAuton();
+  // initRedFarAuton();
   // initBlueFarAuton();
+  // initRedFar2Auton();
+  // initBlueFar2Auton();
   // initRedFarParkAuton();
   // initBlueFarParkAuton();
 }

@@ -18,13 +18,6 @@ void checkAbortSubsystems() {
   }
 }
 
-void checkLockdown() {
-  if (lockdownBtn.changedToPressed()) {
-    currIntakeState = intakeLockdown;
-    currLiftState = liftLockdown;
-  }
-}
-
 void robotStats() {
   pros::lcd::print(1, "Drive State: %c | Drive Temp: %i", driveState,
                    (int)driveR1.get_temperature());

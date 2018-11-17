@@ -2,13 +2,13 @@
 
 void initRedCloseAuton() {
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "A");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{43_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{44_in, 0_ft, 0_deg}}, "B");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "C");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "C");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{5_in, 0_ft, 0_deg}}, "D");
@@ -25,7 +25,7 @@ void executeRedCloseAuton() {
   profileController.setTarget("B");
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(-90_deg);
+  chassisController.turnAngle(-90_deg);
 
   lift.moveAbsolute(-20, 100);
 
@@ -35,9 +35,12 @@ void executeRedCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(90_deg);
+  intake.moveAbsolute(-80, 100);
+  pros::delay(600);
 
-  chassisController.moveDistance(-33_in);
+  chassisController.turnAngle(-90_deg);
+
+  chassisController.moveDistance(-36_in);
 }
 
 //
@@ -45,17 +48,17 @@ void executeRedCloseAuton() {
 
 void initBlueCloseAuton() {
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "A");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{43_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{44_in, 0_ft, 0_deg}}, "B");
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{40_in, 0_ft, 0_deg}}, "C");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "C");
 
   profileController.generatePath(
       {Point{0_ft, 0_ft, 0_deg}, Point{5_in, 0_ft, 0_deg}}, "D");
-}
+} // hella good
 
 void executeBlueCloseAuton() {
   intake.moveAbsolute(-270, 100);
@@ -68,7 +71,7 @@ void executeBlueCloseAuton() {
   profileController.setTarget("B");
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(90_deg);
+  chassisController.turnAngle(90_deg);
 
   lift.moveAbsolute(-20, 100);
 
@@ -78,10 +81,13 @@ void executeBlueCloseAuton() {
   profileController.setTarget("D", true);
   profileController.waitUntilSettled();
 
-  chassisController.turnAngleAsync(-90_deg);
+  intake.moveAbsolute(-80, 100);
+  pros::delay(600);
 
-  chassisController.moveDistance(-33_in);
-}
+  chassisController.turnAngle(90_deg);
+
+  chassisController.moveDistance(-36_in);
+} // hella good
 
 //
 //
@@ -162,46 +168,49 @@ void executeBlueFarAuton() {
 
 void initRedFar2Auton() {
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A"); // First Cap
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-7_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{9_in, 0_ft, 0_deg}}, "B"); // Back From
+                                                                  // First Cap
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{21_in, 0_ft, 0_deg}}, "C"); // Second Cap
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{18_in, 0_ft, 0_deg}}, "C");
-
-  profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-13_in, 0_ft, 0_deg}}, "D");
+      {Point{0_ft, 0_ft, 0_deg}, Point{12_in, 0_ft, 0_deg}}, "D"); // Platform
+                                                                   // Aligning
 }
 
 void executeRedFar2Auton() {
 
-  intake.moveAbsolute(-270, 100); // Assumes 100 is the value where the extended
-  pros::delay(500);
+  intake.moveAbsolute(-270, 100); // Brings intake down from folded position
+  pros::delay(500); // Waits until intake comes down to ensure doesn't get stuck
   lift.moveAbsolute(-20, 100); // lets say 50 is the flat floor value
 
-  profileController.setTarget("A");
+  profileController.setTarget("A"); // Moves to the first cap
+                                    // and prods the cap over
   profileController.waitUntilSettled();
 
-  profileController.setTarget("B", true);
+  profileController.setTarget("B", true); // Moves back to clear the
+                                          // first cap before it turns
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(61_deg);
+  chassisController.turnAngle(63_deg); // Turns to second cap
 
-  profileController.setTarget("C");
+  profileController.setTarget("C"); // Moves into the second cap
   profileController.waitUntilSettled();
 
-  intake.moveAbsolute(-80, 100); // Lets say 30 is the intake upflip value
-  pros::delay(200);
-  intake.moveAbsolute(-270, 50); // Return to flat value
+  intake.moveAbsolute(-60, 100); // Brings intake up to flip cap
+  pros::delay(600);
+  intake.moveAbsolute(-270, 100); // Returns intake down to flat value
 
-  profileController.setTarget("D", true);
+  profileController.setTarget("D", true); // Moves back to align with platform
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(29_deg);
+  chassisController.turnAngle(47_deg); // Aligns with parking platform
   intake.moveAbsolute(-225, 100);
 
-  chassisController.moveDistance(-40_in); // park
+  chassisController.moveDistance(-43_in); // CLimbs parking platform backwards
 }
 
 //
@@ -209,45 +218,49 @@ void executeRedFar2Auton() {
 
 void initBlueFar2Auton() {
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A"); // First Cap
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-7_in, 0_ft, 0_deg}}, "B");
+      {Point{0_ft, 0_ft, 0_deg}, Point{9_in, 0_ft, 0_deg}}, "B"); // Back From
+                                                                  // First Cap
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{21_in, 0_ft, 0_deg}}, "C"); // Second Cap
 
   profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{18_in, 0_ft, 0_deg}}, "C");
-
-  profileController.generatePath(
-      {Point{0_ft, 0_ft, 0_deg}, Point{-13_in, 0_ft, 0_deg}}, "D");
+      {Point{0_ft, 0_ft, 0_deg}, Point{12_in, 0_ft, 0_deg}}, "D"); // Platform
+                                                                   // Aligning
 }
 
 void executeBlueFar2Auton() {
-  intake.moveAbsolute(-270, 100); // Assumes 100 is the value where the extended
-  pros::delay(500);
+
+  intake.moveAbsolute(-270, 100); // Brings intake down from folded position
+  pros::delay(500); // Waits until intake comes down to ensure doesn't get stuck
   lift.moveAbsolute(-20, 100); // lets say 50 is the flat floor value
 
-  profileController.setTarget("A");
+  profileController.setTarget("A"); // Moves to the first cap
+                                    // and prods the cap over
   profileController.waitUntilSettled();
 
-  profileController.setTarget("B", true);
+  profileController.setTarget("B", true); // Moves back to clear the
+                                          // first cap before it turns
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(-61_deg);
+  chassisController.turnAngle(-63_deg); // Turns to second cap
 
-  profileController.setTarget("C");
+  profileController.setTarget("C"); // Moves into the second cap
   profileController.waitUntilSettled();
 
-  intake.moveAbsolute(-80, 100); // Lets say 30 is the intake upflip value
-  pros::delay(200);
-  intake.moveAbsolute(-270, 50); // Return to flat value
+  intake.moveAbsolute(-60, 100); // Brings intake up to flip cap
+  pros::delay(600);
+  intake.moveAbsolute(-270, 100); // Returns intake down to flat value
 
-  profileController.setTarget("D", true);
+  profileController.setTarget("D", true); // Moves back to align with platform
   profileController.waitUntilSettled();
 
-  chassisController.turnAngle(-29_deg);
+  chassisController.turnAngle(-47_deg); // Aligns with parking platform
   intake.moveAbsolute(-225, 100);
 
-  chassisController.moveDistance(-40_in); // park
+  chassisController.moveDistance(-43_in); // CLimbs parking platform backwards
 }
 
 //

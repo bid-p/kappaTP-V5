@@ -16,8 +16,10 @@ void autonomous() {
 
   // executeRedCloseAuton();
   // executeBlueCloseAuton();
-  executeRedFarAuton();
+  // executeRedFarAuton();
   // executeBlueFarAuton();
+  executeRedFar2Auton();
+  // executeBlueFar2Auton();
   // executeRedFarParkAuton();
   // executeBlueFarParkAuton();
 

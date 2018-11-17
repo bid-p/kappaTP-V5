@@ -8,14 +8,11 @@ using namespace okapi;
 
 extern Motor lift;
 
-extern AsyncPosIntegratedController liftController;
-
 typedef enum liftStates {
   liftNotRunning,
   liftHolding,
   liftRising,
   liftFalling,
-  liftLockdown,
   liftLowPole,
   liftHighPole,
   liftFloor,

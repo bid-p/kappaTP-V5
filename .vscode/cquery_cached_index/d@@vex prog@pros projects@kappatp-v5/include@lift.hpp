@@ -8,8 +8,6 @@ using namespace okapi;
 
 extern Motor lift;
 
-extern AsyncPosIntegratedController liftController;
-
 typedef enum liftStates {
   liftNotRunning,
   liftHolding,
@@ -39,8 +37,6 @@ extern ControllerButton liftLowPoleBtn;
 extern ControllerButton liftHighPoleBtn;
 extern ControllerButton liftFlipBtn;
 extern ControllerButton liftGrabBtn;
-
-extern pros::Mutex liftMutex;
 
 extern void updateLift();
 

@@ -2,12 +2,8 @@
 
 Motor intake(MPORT_INTAKE, false, AbstractMotor::gearset::red);
 
-AsyncPosIntegratedController intakeController =
-    AsyncControllerFactory::posIntegrated(MPORT_INTAKE);
-
 tIntakeStates currIntakeState;
 char intakeState = 'I';
-int flipUpPos = 200;
 double intakePosition;
 
 ControllerButton intakeUpBtn = ControllerDigital::L2;
@@ -56,13 +52,6 @@ void intakeAct(void *) {
 
     case intakeCapHug:
       intake.moveAbsolute(-188, 100);
-      break;
-
-    case intakeLockdown:
-      intakeState = 'L';
-      intake.moveAbsolute(-60, 100);
-      intakePosition = intake.getPosition();
-      currIntakeState = intakeHolding;
       break;
     }
 

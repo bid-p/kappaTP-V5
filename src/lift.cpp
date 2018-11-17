@@ -2,9 +2,6 @@
 
 Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::red);
 
-AsyncPosIntegratedController liftController =
-    AsyncControllerFactory::posIntegrated(MPORT_LIFT);
-
 tLiftStates currLiftState;
 char liftState = 'L';
 
@@ -20,18 +17,16 @@ ControllerButton liftLowPoleBtn = controller[ControllerDigital::left];
 ControllerButton liftHighPoleBtn = controller[ControllerDigital::right];
 ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 
-pros::Mutex liftMutex;
-
 void updateLift() {
   liftPosition = lift.getPosition(); // records lift position every loop
 
-  if (liftRisingBtn
-          .isPressed()) { // sets state to rising if rising button pressed
+  if (liftRisingBtn.isPressed()) { // sets state to rising if
+                                   // rising button pressed
     currLiftState = liftRising;
     liftState = 'r';
   }
-  if (liftFallingBtn
-          .isPressed()) { // sets state to rising if rising button pressed
+  if (liftFallingBtn.isPressed()) { // sets state to rising if
+                                    // falling button pressed
     currLiftState = liftFalling;
     liftState = 'f';
   }
@@ -74,13 +69,6 @@ void liftAct(void *) {
 
     case liftFalling:
       lift.moveVoltage(-12000);    // lowers the lift aat 12000mV
-      currLiftState = liftHolding; // sets the default state to liftHolding
-      break;
-
-    case liftLockdown:
-      liftState = 'L';
-      lift.moveAbsolute(-20, 100); // moves the lift to defensive
-                                   //"lockdown" value
       currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 

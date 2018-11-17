@@ -14,8 +14,10 @@ void initialize() {
 
   // initRedCloseAuton();
   // initBlueCloseAuton();
-  initRedFarAuton();
+  // initRedFarAuton();
   // initBlueFarAuton();
+  initRedFar2Auton();
+  // initBlueFar2Auton();
   // initRedFarParkAuton();
   // initBlueFarParkAuton();
 }

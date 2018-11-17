@@ -3,6 +3,7 @@
 Controller controller;
 
 ControllerButton abortBtn = ControllerDigital::B;
+ControllerButton lockdownBtn = ControllerDigital::X;
 
 const double joyDeadband = .08;
 
@@ -28,28 +29,15 @@ void robotStats() {
   pros::lcd::print(5, "Intake State: %c | Intake Temp: %i", intakeState,
                    (int)intake.get_temperature());
   pros::lcd::print(6, "Intake Encoder: %i", (int)intake.get_position());
-  pros::lcd::print(7, "Exp. ChassisWidth %d",
-                   (driveR2.get_position() - driveL2.get_position()) / 2);
 }
 
 void initActTasks() {
-  // pros::task_t updateIntakeTask =
-  //     pros::c::task_create(updateIntake, NULL, TASK_PRIORITY_DEFAULT,
-  //                          TASK_STACK_DEPTH_DEFAULT, "Update Intake Status");
 
   pros::Task intakeActTask(intakeAct, NULL, TASK_PRIORITY_DEFAULT,
                            TASK_STACK_DEPTH_DEFAULT, "Act Intake");
 
-  // pros::task_t updateDriveTask =
-  //     pros::c::task_create(updateDrive, NULL, TASK_PRIORITY_DEFAULT,
-  //                          TASK_STACK_DEPTH_DEFAULT, "Update Drive Status");
-
   pros::Task driveActTask(driveAct, NULL, TASK_PRIORITY_DEFAULT,
                           TASK_STACK_DEPTH_DEFAULT, "Act Drive");
-
-  // pros::task_t updateLiftTask =
-  //     pros::c::task_create(updateLift, NULL, TASK_PRIORITY_DEFAULT,
-  //                          TASK_STACK_DEPTH_DEFAULT, "Update Lift Status");
 
   pros::Task liftActTask(liftAct, NULL, TASK_PRIORITY_DEFAULT,
                          TASK_STACK_DEPTH_DEFAULT, "Act Lift");

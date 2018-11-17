@@ -16,6 +16,7 @@ typedef enum intakeStates {
   intakeDown,
   intakeUp,
   intakeCapHug,
+  intakeLockdown,
 } tIntakeStates;
 
 extern tIntakeStates currIntakeState;
@@ -27,8 +28,6 @@ extern double intakePosition;
 extern ControllerButton intakeCloseBtn;
 extern ControllerButton intakeOpenBtn;
 extern ControllerButton intakeFlipMacroBtn;
-
-extern pros::Mutex intakeMutex;
 
 extern void updateIntake();
 

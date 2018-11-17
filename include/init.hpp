@@ -13,6 +13,7 @@ extern ControllerButton abortBtn;
 extern const double joyDeadband;
 
 extern void checkAbortSubsystems();
+extern void checkLockdown();
 
 extern void robotStats();
 

@@ -14,8 +14,6 @@ ControllerButton intakeUpBtn = ControllerDigital::L2;
 ControllerButton intakeDownBtn = controller[ControllerDigital::L1];
 ControllerButton intakeCapHugBtn = controller[ControllerDigital::Y];
 
-pros::Mutex intakeMutex;
-
 void updateIntake() {
   if (intakeUpBtn.isPressed()) {
     currIntakeState = intakeUp;
@@ -58,6 +56,13 @@ void intakeAct(void *) {
 
     case intakeCapHug:
       intake.moveAbsolute(-188, 100);
+      break;
+
+    case intakeLockdown:
+      intakeState = 'L';
+      intake.moveAbsolute(-60, 100);
+      intakePosition = intake.getPosition();
+      currIntakeState = intakeHolding;
       break;
     }
 

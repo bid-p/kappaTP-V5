@@ -23,25 +23,30 @@ ControllerButton liftFloorBtn = controller[ControllerDigital::down];
 pros::Mutex liftMutex;
 
 void updateLift() {
-  liftPosition = lift.getPosition();
+  liftPosition = lift.getPosition(); // records lift position every loop
 
-  if (liftRisingBtn.isPressed()) {
+  if (liftRisingBtn
+          .isPressed()) { // sets state to rising if rising button pressed
     currLiftState = liftRising;
     liftState = 'r';
   }
-  if (liftFallingBtn.isPressed()) {
+  if (liftFallingBtn
+          .isPressed()) { // sets state to rising if rising button pressed
     currLiftState = liftFalling;
     liftState = 'f';
   }
-  if (liftHighPoleBtn.changedToPressed()) {
+  if (liftHighPoleBtn.changedToPressed()) { // sets state to high macro if right
+                                            // button pressed
     currLiftState = liftHighPole;
     liftState = 't';
   }
-  if (liftLowPoleBtn.changedToPressed()) {
+  if (liftLowPoleBtn.changedToPressed()) { // sets state to low macro if
+                                           // left pressed
     currLiftState = liftLowPole;
     liftState = 'l';
   }
-  if (liftFloorBtn.changedToPressed()) {
+  if (liftFloorBtn.changedToPressed()) { // //sets state to floor if
+                                         // down button pressed
     currLiftState = liftFloor;
     liftState = 'f';
   }
@@ -51,38 +56,47 @@ void liftAct(void *) {
   while (true) {
     switch (currLiftState) {
     case liftNotRunning:
-      lift.setBrakeMode(AbstractMotor::brakeMode::coast);
+      lift.setBrakeMode(AbstractMotor::brakeMode::coast); // coasts the lift and
+                                                          // sets it to 0 power
       lift.moveVoltage(0);
       break;
 
     case liftHolding:
-      lift.moveAbsolute(liftPosition, 100);
+      lift.moveAbsolute(liftPosition, 100); // sets the lift height to
+                                            // the saved liftPosition value
       currLiftState = liftHolding;
       break;
 
     case liftRising:
-      lift.moveVoltage(12000);
-      currLiftState = liftHolding;
+      lift.moveVoltage(12000);     // raises the lift at 12000mV
+      currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftFalling:
-      lift.moveVoltage(-12000);
-      currLiftState = liftHolding;
+      lift.moveVoltage(-12000);    // lowers the lift aat 12000mV
+      currLiftState = liftHolding; // sets the default state to liftHolding
+      break;
+
+    case liftLockdown:
+      liftState = 'L';
+      lift.moveAbsolute(-20, 100); // moves the lift to defensive
+                                   //"lockdown" value
+      currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftLowPole:
-      lift.moveAbsolute(lowPoleVal, 100);
-      currLiftState = liftHolding;
+      lift.moveAbsolute(lowPoleVal, 100); // moves the lift to low pole height
+      currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftHighPole:
-      lift.moveAbsolute(highPoleVal, 100);
-      currLiftState = liftHolding;
+      lift.moveAbsolute(highPoleVal, 100); // moves lift to high pole height
+      currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftFloor:
-      lift.moveAbsolute(floorVal, 100);
-      currLiftState = liftHolding;
+      lift.moveAbsolute(floorVal, 100); // moves lift to floor value
+      currLiftState = liftHolding;      // sets the default state to liftHolding
       break;
     }
     pros::delay(10);

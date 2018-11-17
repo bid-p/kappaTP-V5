@@ -25,11 +25,7 @@ AsyncMotionProfileController profileController =
 tDriveStates currDriveState;
 char driveState = 'D';
 
-pros::Mutex driveMutex;
-
 void updateDrive() {
-  // driveMutex.take(10);
-
   if (abs(controller.getAnalog(ControllerAnalog::leftY)) > joyDeadband ||
       abs(controller.getAnalog(ControllerAnalog::rightY)) > joyDeadband) {
     currDriveState = driveRunning;
@@ -38,14 +34,10 @@ void updateDrive() {
     currDriveState = driveNotRunning;
     driveState = 'x';
   }
-
-  // driveMutex.give();
 }
 
 void driveAct(void *) {
   while (true) {
-    // driveMutex.take(500);
-
     switch (currDriveState) {
     case driveNotRunning:
       chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
@@ -54,13 +46,12 @@ void driveAct(void *) {
 
     case driveRunning:
       chassisController.setBrakeMode(AbstractMotor::brakeMode::coast);
-      chassisController.tank(controller.getAnalog(ControllerAnalog::leftY),
-                             controller.getAnalog(ControllerAnalog::rightY),
-                             joyDeadband);
+      chassisController.tank(
+          controller.getAnalog(ControllerAnalog::leftY) * 1.0,
+          controller.getAnalog(ControllerAnalog::rightY) * 1.0,
+          joyDeadband * 1.0);
       currDriveState = driveNotRunning;
       break;
-
-      // driveMutex.give();
     }
     pros::delay(10);
   }

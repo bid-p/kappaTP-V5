@@ -28,8 +28,6 @@ extern tDriveStates currDriveState;
 
 extern char driveState;
 
-extern pros::Mutex driveMutex;
-
 extern void updateDrive();
 
 extern void driveAct(void *);

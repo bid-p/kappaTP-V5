@@ -15,6 +15,7 @@ typedef enum liftStates {
   liftHolding,
   liftRising,
   liftFalling,
+  liftLockdown,
   liftLowPole,
   liftHighPole,
   liftFloor,

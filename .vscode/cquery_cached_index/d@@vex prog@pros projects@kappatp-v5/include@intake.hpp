@@ -8,6 +8,8 @@ using namespace okapi;
 
 extern Motor intake;
 
+extern AsyncPosIntegratedController intakeController;
+
 typedef enum intakeStates {
   intakeNotRunning,
   intakeHolding,

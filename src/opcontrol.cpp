@@ -28,7 +28,6 @@ void opcontrol() {
     updateLift();
 
     checkAbortSubsystems();
-    checkLockdown();
 
     robotStats();
 

@@ -235,7 +235,7 @@ void executeBlueFar2Auton() {
 
   intake.moveAbsolute(-270, 100); // Brings intake down from folded position
   pros::delay(500); // Waits until intake comes down to ensure doesn't get stuck
-  lift.moveAbsolute(-20, 100); // lets say 50 is the flat floor value
+  lift.moveAbsolute(-20, 100); // lets say -29 is the flat floor value
 
   profileController.setTarget("A"); // Moves to the first cap
                                     // and prods the cap over
@@ -310,4 +310,172 @@ void executeBlueFarParkAuton() {
   intake.moveAbsolute(-100, 100);
 
   chassisController.moveDistance(-33_in);
+}
+
+void initProgSkills() {
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "A");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{21_in, 0_ft, 0_deg}}, "B");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{20_in, 0_ft, 0_deg}}, "C");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{12_in, 0_ft, 0_deg}}, "D");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{3_in, 0_ft, 0_deg}}, "E");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{24_in, 0_ft, 0_deg}}, "F");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{45_in, 0_ft, 0_deg}}, "G");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{42_in, 0_ft, 0_deg}}, "H");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{48_in, 0_ft, 0_deg}}, "I");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{24_in, 0_ft, 0_deg}}, "J");
+
+  profileController.generatePath(
+      {Point{0_ft, 0_ft, 0_deg}, Point{45_in, 0_ft, 0_deg}}, "K");
+}
+
+void executeProgSkills() {
+  chassisController.setMaxVelocity(100);
+
+  intakeController.setTarget(-270);
+  intakeController.waitUntilSettled();
+  liftController.setTarget(0);
+  liftController.waitUntilSettled();
+
+  profileController.setTarget("A", true);
+  profileController.waitUntilSettled();
+  // hit low flag
+  profileController.setTarget("B");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(-90_deg);
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  liftController.setTarget(-20);
+  liftController.waitUntilSettled();
+
+  profileController.setTarget("C");
+  profileController.waitUntilSettled();
+
+  intakeController.setTarget(-60); // Brings intake up to flip cap
+  intakeController.waitUntilSettled();
+  intakeController.setTarget(-270); // Returns intake down to flat value
+  intakeController.waitUntilSettled();
+  // flipped cap 1
+  profileController.setTarget("D", true);
+  profileController.waitUntilSettled();
+
+  intakeController.setTarget(-80); // Brings intake up to not
+                                   // interfere with anything
+  intakeController.waitUntilSettled();
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  profileController.setTarget("E");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(90_deg);
+
+  profileController.setTarget("F");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(-90_deg);
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  intakeController.setTarget(-270);
+  intakeController.waitUntilSettled();
+  liftController.setTarget(160);
+  liftController.waitUntilSettled();
+
+  profileController.setTarget("G");
+  profileController.waitUntilSettled();
+  // flipped cap 2
+  profileController.setTarget("H", true);
+  profileController.waitUntilSettled();
+
+  intakeController.setTarget(-80); // Brings intake up to not
+                                   // interfere with anything
+  intakeController.waitUntilSettled();
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  profileController.setTarget("E");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(90_deg);
+
+  profileController.setTarget("I");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(-90_deg);
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  intakeController.setTarget(-270);
+  intakeController.waitUntilSettled();
+  liftController.setTarget(160);
+  liftController.waitUntilSettled();
+
+  profileController.setTarget("G");
+  profileController.waitUntilSettled();
+  // flipped cap 3
+  profileController.setTarget("H", true);
+  profileController.waitUntilSettled();
+
+  liftController.setTarget(0);
+  liftController.waitUntilSettled();
+
+  intakeController.setTarget(-80); // Brings intake up to not
+                                   // interfere with anything
+  intakeController.waitUntilSettled();
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  profileController.setTarget("E");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(90_deg);
+
+  profileController.setTarget("J");
+  profileController.waitUntilSettled();
+
+  chassisController.turnAngle(-90_deg);
+
+  intakeController.setTarget(-270); // Returns intake down to flat value
+  intakeController.waitUntilSettled();
+
+  liftController.setTarget(-20);
+  liftController.waitUntilSettled();
+
+  chassisController.forward(-.25); // fencealign
+  pros::delay(600);
+
+  profileController.setTarget("K");
+  profileController.waitUntilSettled();
+
+  intakeController.setTarget(-60); // Brings intake up to flip cap
+  intakeController.waitUntilSettled();
+  intakeController.setTarget(-270); // Returns intake down to flat value
+  intakeController.waitUntilSettled();
 }

@@ -25,4 +25,7 @@ extern void executeRedFarParkAuton();
 extern void initBlueFarParkAuton();
 extern void executeBlueFarParkAuton();
 
+extern void initProgSkills();
+extern void executeProgSkills();
+
 #endif

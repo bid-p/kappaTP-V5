@@ -2,6 +2,9 @@
 
 Motor intake(MPORT_INTAKE, false, AbstractMotor::gearset::red);
 
+AsyncPosIntegratedController intakeController =
+    AsyncControllerFactory::posIntegrated(intake);
+
 tIntakeStates currIntakeState;
 char intakeState = 'I';
 double intakePosition;
@@ -29,32 +32,35 @@ void intakeAct(void *) {
   while (true) {
     switch (currIntakeState) {
     case intakeNotRunning:
+      liftController.flipDisable(true);
       intake.setBrakeMode(AbstractMotor::brakeMode::coast);
       intake.moveVoltage(0);
       break;
 
     case intakeHolding:
-      intake.moveAbsolute(intakePosition, 100);
-      currIntakeState = intakeNotRunning;
+      intakeController.setTarget(intakePosition);
+      liftController.flipDisable(false);
       break;
 
     case intakeUp:
+      liftController.flipDisable(true);
       intake.moveVoltage(12000);
       currIntakeState = intakeNotRunning;
       // intakePosition = intake.getPosition();
       break;
 
     case intakeDown:
+      liftController.flipDisable(true);
       intake.moveVoltage(-5000);
       currIntakeState = intakeNotRunning;
       // intakePosition = intake.getPosition();
       break;
 
     case intakeCapHug:
-      intake.moveAbsolute(-188, 100);
+      intakeController.setTarget(-188);
+      liftController.flipDisable(false);
       break;
     }
-
     pros::delay(10);
   }
 }

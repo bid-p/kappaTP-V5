@@ -2,6 +2,9 @@
 
 Motor lift(MPORT_LIFT, false, AbstractMotor::gearset::red);
 
+AsyncPosIntegratedController liftController =
+    AsyncControllerFactory::posIntegrated(lift);
+
 tLiftStates currLiftState;
 char liftState = 'L';
 
@@ -51,40 +54,43 @@ void liftAct(void *) {
   while (true) {
     switch (currLiftState) {
     case liftNotRunning:
+      liftController.flipDisable(true);
       lift.setBrakeMode(AbstractMotor::brakeMode::coast); // coasts the lift and
                                                           // sets it to 0 power
       lift.moveVoltage(0);
       break;
 
     case liftHolding:
-      lift.moveAbsolute(liftPosition, 100); // sets the lift height to
-                                            // the saved liftPosition value
-      currLiftState = liftHolding;
+      liftController.setTarget(liftPosition); // sets the lift height to
+                                              // the saved liftPosition value
+      liftController.flipDisable(false);
       break;
 
     case liftRising:
+      liftController.flipDisable(true);
       lift.moveVoltage(12000);     // raises the lift at 12000mV
       currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftFalling:
-      lift.moveVoltage(-12000);    // lowers the lift aat 12000mV
+      liftController.flipDisable(true);
+      lift.moveVoltage(-12000);    // lowers the lift at 12000mV
       currLiftState = liftHolding; // sets the default state to liftHolding
       break;
 
     case liftLowPole:
-      lift.moveAbsolute(lowPoleVal, 100); // moves the lift to low pole height
-      currLiftState = liftHolding; // sets the default state to liftHolding
+      liftController.setTarget(lowPoleVal); // moves the lift to low pole height
+      liftController.flipDisable(false);
       break;
 
     case liftHighPole:
-      lift.moveAbsolute(highPoleVal, 100); // moves lift to high pole height
-      currLiftState = liftHolding; // sets the default state to liftHolding
+      liftController.setTarget(highPoleVal); // moves lift to high pole height
+      liftController.flipDisable(false);
       break;
 
     case liftFloor:
-      lift.moveAbsolute(floorVal, 100); // moves lift to floor value
-      currLiftState = liftHolding;      // sets the default state to liftHolding
+      liftController.setTarget(floorVal); // moves lift to floor value
+      liftController.flipDisable(false);
       break;
     }
     pros::delay(10);

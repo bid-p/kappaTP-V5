@@ -16,7 +16,8 @@ void initialize() {
   // initBlueCloseAuton();
   // initRedFarAuton();
   // initBlueFarAuton();
-  initRedFar2Auton();
+  // initRedFar2Auton();
+  // initProgSkills();
   // initBlueFar2Auton();
   // initRedFarParkAuton();
   // initBlueFarParkAuton();

@@ -18,10 +18,11 @@ void autonomous() {
   // executeBlueCloseAuton();
   // executeRedFarAuton();
   // executeBlueFarAuton();
-  executeRedFar2Auton();
+  //executeRedFar2Auton();
   // executeBlueFar2Auton();
   // executeRedFarParkAuton();
   // executeBlueFarParkAuton();
+  executeProgSkills();
 
   while (true) {
     robotStats();

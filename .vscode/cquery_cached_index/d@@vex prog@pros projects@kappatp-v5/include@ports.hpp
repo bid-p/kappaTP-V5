@@ -9,6 +9,6 @@ const int MPORT_DRIVE_R2 = 19;
 const int MPORT_DRIVE_R3 = 20;
 
 const int MPORT_LIFT = 14;
-const int MPORT_INTAKE = 3;
+const int MPORT_INTAKE = 4;
 
 #endif

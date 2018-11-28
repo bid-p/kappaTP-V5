@@ -32,25 +32,25 @@ void intakeAct(void *) {
   while (true) {
     switch (currIntakeState) {
     case intakeNotRunning:
-      liftController.flipDisable(true);
+      intakeController.flipDisable(true);
       intake.setBrakeMode(AbstractMotor::brakeMode::coast);
       intake.moveVoltage(0);
       break;
 
     case intakeHolding:
       intakeController.setTarget(intakePosition);
-      liftController.flipDisable(false);
+      intakeController.flipDisable(false);
       break;
 
     case intakeUp:
-      liftController.flipDisable(true);
+      intakeController.flipDisable(true);
       intake.moveVoltage(12000);
       currIntakeState = intakeNotRunning;
       // intakePosition = intake.getPosition();
       break;
 
     case intakeDown:
-      liftController.flipDisable(true);
+      intakeController.flipDisable(true);
       intake.moveVoltage(-5000);
       currIntakeState = intakeNotRunning;
       // intakePosition = intake.getPosition();
@@ -58,7 +58,7 @@ void intakeAct(void *) {
 
     case intakeCapHug:
       intakeController.setTarget(-188);
-      liftController.flipDisable(false);
+      intakeController.flipDisable(false);
       break;
     }
     pros::delay(10);
